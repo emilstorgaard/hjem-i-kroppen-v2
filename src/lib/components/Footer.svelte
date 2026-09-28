@@ -31,10 +31,10 @@
 					class="h-10 w-10 rounded-full object-cover"
 				/>
 			{/if}
-			<span class="font-serif text-lg font-semibold text-black">{s.siteName}</span>
+			<span class="font-serif text-lg font-semibold text-white">{s.siteName}</span>
 		</a>
 
-		<p class="text-sm text-black/70 sm:text-right">
+		<p class="text-sm text-white/70 sm:text-right">
 			&copy; {s.ownerName}
 			{year}
 			<br />
