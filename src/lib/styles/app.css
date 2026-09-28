@@ -15,6 +15,10 @@
 	--color-rust-700: #ac5115;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 .no-scrollbar {
 	scrollbar-width: none;
 	-ms-overflow-style: none;

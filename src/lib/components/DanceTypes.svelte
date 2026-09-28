@@ -57,7 +57,12 @@
 	{/if}
 {/snippet}
 
-<section id="tilbud" aria-labelledby="tilbud-heading" class="bg-mint-600 px-6 py-24 lg:px-8">
+<section
+	id="tilbud"
+	aria-labelledby="tilbud-heading"
+	class="bg-mint-600 px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
+>
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
 			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Mine tilbud</p>
@@ -102,7 +107,7 @@
 						</div>
 
 						<a
-							href="#kontakt"
+							href="dancetype{i+1}"
 							class="group mt-6 hidden items-center gap-1 rounded-sm text-sm font-medium text-mint-700 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:inline-flex"
 						>
 							Læs mere / book
@@ -123,7 +128,7 @@
 						</a>
 
 						<a
-							href="#kontakt"
+							href="dancetype{i+1}"
 							class="mt-6 inline-flex items-center justify-center rounded-full bg-mint-700 px-8 py-3.5 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
 						>
 							Læs mere / book

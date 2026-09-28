@@ -71,25 +71,4 @@ Du er velkommen.
 			</a>
 		</div>
 	</div>
-
-	<div
-		class="relative hidden justify-center pb-6 [@media(min-width:640px)_and_(min-height:760px)]:flex"
-	>
-		<a
-			href="#om-mig"
-			aria-label="Scroll ned"
-			class="text-white/70 transition-colors hover:text-white"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="h-6 w-6 animate-bounce"
-			>
-				<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-			</svg>
-		</a>
-	</div>
 </section>
