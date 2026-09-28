@@ -81,7 +81,7 @@
 			loading="lazy"
 			fetchpriority="low"
 			decoding="async"
-			class="mb-4 h-16 w-16 rounded-full object-cover shadow-lg ring-4 ring-black/10 sm:h-32 sm:w-32"
+			class="mb-4 h-32 w-32 rounded-full object-cover shadow-lg"
 		/>
 
 		<p class="font-serif text-6xl font-semibold text-black/80 sm:text-7xl" role="alert">
@@ -98,7 +98,7 @@
 
 		<a
 			href="/"
-			class="mt-8 rounded-full bg-black px-8 py-3 text-base font-medium text-white shadow-md transition-colors hover:bg-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+			class="mt-8 rounded-full bg-mint-700 px-8 py-3 text-base font-medium text-white shadow-md transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 		>
 			{buttonText}
 		</a>
