@@ -9,6 +9,7 @@
 	import { SITE_URL } from '$lib/site';
 	import { mediaSrc } from '$lib/utils/media';
 	import type { PageProps } from './$types';
+	import ContactV2 from '$lib/components/ContactV2.svelte';
 
 	let { data }: PageProps = $props();
 
@@ -49,4 +50,5 @@
 <DanceTypes />
 <!-- <Prices /> -->
 <About />
-<Contact contact={data.page.properties} />
+<!-- <Contact contact={data.page.properties} /> -->
+<ContactV2 contact={data.page.properties} />
