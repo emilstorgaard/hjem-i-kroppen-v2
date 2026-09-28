@@ -4,7 +4,7 @@
 
 	const N = testimonials.length;
 	const isCarousel = N > 3;
-	const autoplayDelay = 6000;
+	const autoplayDelay = 4000;
 
 	let activeIndex = $state(0);
 	let regionEl: HTMLDivElement | undefined = $state();

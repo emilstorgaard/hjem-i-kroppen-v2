@@ -87,9 +87,6 @@
 
 					<div class="flex flex-1 flex-col p-8 md:justify-center md:p-10">
 						<h3 class="font-serif text-2xl font-semibold text-black">
-							<span class="mr-2 tracking-[0.2em] text-mint-700 md:hidden"
-								>{String(i + 1).padStart(2, '0')}</span
-							>
 							<span class="uppercase tracking-[0.15em] md:tracking-normal md:normal-case"
 								>{type.title}</span
 							>
