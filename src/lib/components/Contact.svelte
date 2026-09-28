@@ -23,7 +23,12 @@
 	);
 </script>
 
-<section id="kontakt" aria-labelledby="kontakt-heading" class="bg-mint-600 px-6 py-24 lg:px-8">
+<section
+	id="kontakt"
+	aria-labelledby="kontakt-heading"
+	class="bg-mint-600 px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
+>
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-2xl text-center" use:reveal>
 			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Kontakt</p>
@@ -44,8 +49,8 @@
 				<a
 					href={phoneHref}
 					use:reveal
-				class="flex flex-col items-center gap-3 rounded-3xl bg-black/5 p-8 text-center ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-black/10 hover:shadow-lg hover:shadow-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-			>
+					class="flex flex-col items-center gap-3 rounded-3xl bg-black/5 p-8 text-center ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-black/10 hover:shadow-lg hover:shadow-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"

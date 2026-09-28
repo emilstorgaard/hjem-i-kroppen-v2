@@ -4,7 +4,7 @@
 
 	const N = testimonials.length;
 	const isCarousel = N > 3;
-	const autoplayDelay = 4000;
+	const autoplayDelay = 3000;
 
 	let activeIndex = $state(0);
 	let regionEl: HTMLDivElement | undefined = $state();
@@ -90,7 +90,7 @@
 
 {#snippet stars(rating: number)}
 	<div class="flex gap-1 text-rust-700" role="img" aria-label="{rating} ud af 5 stjerner">
-		{#each { length: 5 } as _, i}
+		{#each { length: 5 } as _, i (i)}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 20 20"
@@ -126,6 +126,7 @@
 	id="anmeldelser"
 	aria-labelledby="anmeldelser-heading"
 	class="bg-rust-100 px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
 >
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
@@ -163,7 +164,7 @@
 						class="flex py-4 transition-transform duration-500 ease-out"
 						style="transform: translateX(-{activeIndex * (100 / cardsPerView)}%)"
 					>
-						{#each testimonials as testimonial, i}
+						{#each testimonials as testimonial, i (testimonial.name)}
 							<div
 								class="shrink-0 px-3"
 								style="flex: 0 0 {100 / cardsPerView}%"
@@ -202,7 +203,7 @@
 					</button>
 
 					<div class="flex items-center gap-2">
-						{#each { length: maxIndex + 1 } as _, i}
+						{#each { length: maxIndex + 1 } as _, i (i)}
 							<button
 								type="button"
 								onclick={() => goTo(i)}
@@ -238,7 +239,7 @@
 			</div>
 		{:else}
 			<div class="mt-16 grid gap-8 md:grid-cols-3">
-				{#each testimonials as testimonial, i}
+				{#each testimonials as testimonial, i (testimonial.name)}
 					<div use:reveal={{ delay: i * 120 }}>
 						{@render testimonialCard(testimonial)}
 					</div>

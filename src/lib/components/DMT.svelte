@@ -2,7 +2,12 @@
 	import { reveal } from '$lib/actions/reveal';
 </script>
 
-<section id="dmt" aria-labelledby="dmt-heading" class="bg-mint-600 px-6 py-24 lg:px-8">
+<section
+	id="dmt"
+	aria-labelledby="dmt-heading"
+	class="bg-mint-600 px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
+>
 	<div class="mx-auto max-w-4xl text-center" use:reveal>
 		<p class="text-sm font-medium tracking-[0.3em] text-black/70 uppercase">Hvad er DMT?</p>
 		<h2 id="dmt-heading" class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl">
@@ -43,4 +48,3 @@
 		</div>
 	</div>
 </section>
-

@@ -69,7 +69,7 @@
 		</div>
 
 		<div class="mt-16 flex flex-col gap-6 md:gap-8">
-			{#each danceTypes as type, i}
+			{#each danceTypes as type, i (type.title)}
 				<div
 					use:reveal={{ delay: i * 120 }}
 					class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20 md:flex-row md:items-stretch"
@@ -92,7 +92,7 @@
 
 					<div class="flex flex-1 flex-col p-8 md:justify-center md:p-10">
 						<h3 class="font-serif text-2xl font-semibold text-black">
-							<span class="uppercase tracking-[0.15em] md:tracking-normal md:normal-case"
+							<span class="tracking-[0.15em] uppercase md:tracking-normal md:normal-case"
 								>{type.title}</span
 							>
 						</h3>
@@ -107,7 +107,7 @@
 						</div>
 
 						<a
-							href="dancetype{i+1}"
+							href="dancetype{i + 1}"
 							class="group mt-6 hidden items-center gap-1 rounded-sm text-sm font-medium text-mint-700 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:inline-flex"
 						>
 							Læs mere / book
@@ -128,7 +128,7 @@
 						</a>
 
 						<a
-							href="dancetype{i+1}"
+							href="dancetype{i + 1}"
 							class="mt-6 inline-flex items-center justify-center rounded-full bg-mint-700 px-8 py-3.5 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
 						>
 							Læs mere / book

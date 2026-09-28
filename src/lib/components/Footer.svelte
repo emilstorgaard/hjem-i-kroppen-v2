@@ -10,13 +10,13 @@
 	const logo = $derived(s.logo?.[0]);
 </script>
 
-<footer class="border-t border-white/10 bg-[#808080] px-6 py-12 lg:px-8">
+<footer class="border-t border-black/10 bg-[#808080] px-6 py-12 lg:px-8">
 	<div
 		class="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left"
 	>
 		<a
 			href="/"
-			class="flex items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-400"
+			class="flex items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 		>
 			{#if logo}
 				<img
@@ -31,12 +31,13 @@
 					class="h-10 w-10 rounded-full object-cover"
 				/>
 			{/if}
-			<span class="font-serif text-lg font-semibold text-white">{s.siteName}</span>
+			<span class="font-serif text-lg font-semibold text-black">{s.siteName}</span>
 		</a>
 
-		<p class="text-sm text-white/50 sm:text-right">
-			&copy; {s.ownerName} {year}
-			<br>
+		<p class="text-sm text-black/70 sm:text-right">
+			&copy; {s.ownerName}
+			{year}
+			<br />
 			Fotos [fotografens navn]
 		</p>
 	</div>

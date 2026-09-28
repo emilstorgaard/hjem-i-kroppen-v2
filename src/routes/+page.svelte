@@ -4,7 +4,6 @@
 	import DMT from '$lib/components/DMT.svelte';
 	import About from '$lib/components/About.svelte';
 	import DanceTypes from '$lib/components/DanceTypes.svelte';
-	import Prices from '$lib/components/Prices.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import Contact from '$lib/components/Contact.svelte';
 	import { SITE_URL } from '$lib/site';

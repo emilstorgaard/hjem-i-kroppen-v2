@@ -1,9 +1,7 @@
 <script lang="ts">
 	import type { HeroProperties } from '$lib/types/hero';
 
-	let { hero }: { hero: HeroProperties } = $props();
-
-	const h = $derived(hero);
+	let { hero: _hero }: { hero: HeroProperties } = $props();
 </script>
 
 <section
@@ -34,7 +32,7 @@
 			style="animation-delay: 340ms"
 		>
 			<!--{h.heroTitle}-->
-			DANS DIG<br> FRI
+			DANS DIG<br /> FRI
 		</h1>
 
 		<p
@@ -44,19 +42,19 @@
 			Giv slip. Giv dig hen. Dans frit.
 		</p>
 
-				<p
+		<p
 			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
 			style="animation-delay: 460ms"
 		>
-			Oplev stærkere forbindelse til din krop, tydeligere kontakt mellem krop, følelser og tanker 〰 og mere frihed, bevidsthed og nærvær i dit liv.
+			Oplev stærkere forbindelse til din krop, tydeligere kontakt mellem krop, følelser og tanker 〰
+			og mere frihed, bevidsthed og nærvær i dit liv.
 		</p>
 
-						<p
+		<p
 			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
 			style="animation-delay: 460ms"
 		>
-		Jeg guider Fri Dans og danseterapi.
-Du er velkommen.
+			Jeg guider Fri Dans og danseterapi. Du er velkommen.
 		</p>
 
 		<div

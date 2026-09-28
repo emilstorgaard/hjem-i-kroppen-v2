@@ -3,14 +3,16 @@
 	import { reveal } from '$lib/actions/reveal';
 </script>
 
-<section id="priser" aria-labelledby="priser-heading" class="bg-white px-6 py-24 lg:px-8">
+<section
+	id="priser"
+	aria-labelledby="priser-heading"
+	class="bg-white px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
+>
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
 			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Priser</p>
-			<h2
-				class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl"
-				id="priser-heading"
-			>
+			<h2 class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl" id="priser-heading">
 				Investér i dig selv
 			</h2>
 			<p class="mt-6 text-lg leading-relaxed text-black/70">
@@ -20,7 +22,7 @@
 		</div>
 
 		<div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-			{#each priceItems as item, i}
+			{#each priceItems as item, i (item.title)}
 				<div
 					use:reveal={{ delay: i * 120 }}
 					class={[

@@ -2,9 +2,14 @@
 	import { reveal } from '$lib/actions/reveal';
 </script>
 
-<section id="om-mig" aria-labelledby="om-mig-heading" class="bg-white px-6 py-24 lg:px-8">
+<section
+	id="om-mig"
+	aria-labelledby="om-mig-heading"
+	class="bg-white px-6 py-24 lg:px-8"
+	style="scroll-margin-top: var(--header-h, 4.5rem)"
+>
 	<div class="mx-auto max-w-md">
-		<h2 id="om-mig-heading" class="sr-only">Om mig &mdash; Mette, danse- og bevægelsesterapeut</h2>
+		<h2 id="om-mig-heading" class="sr-only">Om mig &mdash; Rikke, danse- og bevægelsesterapeut</h2>
 
 		<div class="relative mx-auto w-full" use:reveal>
 			<div
@@ -16,7 +21,7 @@
 			>
 				<img
 					src="/logo.jpg"
-					alt="Mette, grundlægger af Hjem i Kroppen"
+					alt="Rikke, grundlægger af Hjem i Kroppen"
 					class="h-full w-full object-cover"
 				/>
 				<div

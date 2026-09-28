@@ -81,7 +81,7 @@ export type Testimonial = {
 	rating: number;
 };
 
-// Anmeldelser tilføjes manuelt af Mette i Umbraco – kunderne kan ikke selv skrive anmeldelser.
+// Anmeldelser tilføjes manuelt af Rikke i Umbraco – kunderne kan ikke selv skrive anmeldelser.
 export const testimonials: Testimonial[] = [
 	{
 		quote:

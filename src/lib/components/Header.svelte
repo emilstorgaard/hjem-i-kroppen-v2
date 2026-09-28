@@ -55,7 +55,7 @@
 >
 	<div
 		bind:this={topBarEl}
-		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:py-3 lg:px-8"
+		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:px-8 lg:py-3"
 	>
 		<!-- Spacer matching the mobile menu button width, so the logo below is truly centered -->
 		<div class="h-10 w-10 lg:hidden" aria-hidden="true"></div>
@@ -86,7 +86,7 @@
 		</a>
 
 		<nav class="hidden items-center gap-9 lg:flex" aria-label="Hovedmenu">
-			{#each navLinks as link}
+			{#each navLinks as link (link.label)}
 				<a
 					href={link.href}
 					class="relative rounded-sm text-sm font-medium tracking-wide transition-colors after:absolute after:right-0 after:-bottom-1 after:left-0 after:h-px after:origin-center after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 {solid
@@ -146,7 +146,7 @@
 			class="flex flex-col gap-1 border-t border-black/10 bg-white px-6 py-4 lg:hidden"
 			aria-label="Mobilmenu"
 		>
-			{#each navLinks as link}
+			{#each navLinks as link (link.label)}
 				<a
 					href={link.href}
 					onclick={closeMenu}
