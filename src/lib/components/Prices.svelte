@@ -3,17 +3,17 @@
 	import { reveal } from '$lib/actions/reveal';
 </script>
 
-<section id="priser" aria-labelledby="priser-heading" class="bg-sand-50 px-6 py-24 lg:px-8">
+<section id="priser" aria-labelledby="priser-heading" class="bg-white px-6 py-24 lg:px-8">
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-sand-600 uppercase">Priser</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Priser</p>
 			<h2
-				class="mt-4 font-serif text-4xl font-semibold text-sand-900 sm:text-5xl"
+				class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl"
 				id="priser-heading"
 			>
 				Investér i dig selv
 			</h2>
-			<p class="mt-6 text-lg leading-relaxed text-sand-700">
+			<p class="mt-6 text-lg leading-relaxed text-black/70">
 				Herunder finder du et overblik over mine priser. Er du i tvivl om, hvad der passer bedst til
 				dig, er du altid velkommen til at kontakte mig for en uforpligtende snak.
 			</p>
@@ -26,19 +26,19 @@
 					class={[
 						'flex flex-col rounded-3xl p-8 ring-1 transition-all duration-300 hover:-translate-y-1.5',
 						item.featured
-							? 'bg-sand-800 text-sand-50 shadow-lg shadow-sand-900/20 ring-sand-800 hover:shadow-xl hover:shadow-sand-900/30'
-							: 'bg-sand-100 text-sand-900 ring-sand-200 hover:shadow-xl hover:shadow-sand-900/10 hover:ring-sand-300'
+							? 'bg-black text-white shadow-lg shadow-black/20 ring-black hover:shadow-xl hover:shadow-black/30'
+							: 'bg-mint-600/40 text-black ring-black/10 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20'
 					]}
 				>
 					<h3 class="font-serif text-xl font-semibold">{item.title}</h3>
 					<p class="mt-4 flex items-baseline gap-1">
 						<span class="font-serif text-4xl font-semibold">{item.price}</span>
-						<span class={item.featured ? 'text-sand-200' : 'text-sand-600'}>{item.unit}</span>
+						<span class={item.featured ? 'text-white/70' : 'text-black/60'}>{item.unit}</span>
 					</p>
 					<p
 						class={[
 							'mt-4 flex-1 text-sm leading-relaxed',
-							item.featured ? 'text-sand-100' : 'text-sand-700'
+							item.featured ? 'text-white/80' : 'text-black/70'
 						]}
 					>
 						{item.description}
@@ -48,8 +48,8 @@
 						class={[
 							'mt-6 rounded-full px-5 py-2.5 text-center text-sm font-medium transition-all duration-300 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95',
 							item.featured
-								? 'bg-sand-50 text-sand-900 hover:bg-sand-200 focus-visible:outline-sand-200'
-								: 'bg-sand-800 text-sand-50 hover:bg-sand-900 focus-visible:outline-sand-600'
+								? 'bg-white text-black hover:bg-mint-400 focus-visible:outline-mint-400'
+								: 'bg-black text-white hover:bg-mint-700 focus-visible:outline-mint-700'
 						]}
 					>
 						Book nu

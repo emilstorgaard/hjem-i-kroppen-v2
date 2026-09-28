@@ -5,26 +5,34 @@ export type DanceType = {
 	title: string;
 	description: string;
 	icon: 'circle' | 'heart' | 'compass';
+	audience: string;
+	participants: string;
 };
 
 export const danceTypes: DanceType[] = [
 	{
-		title: 'Danserum',
+		title: 'Danse- og bevægelsesterapi 1:1',
 		description:
-			'Et frirum hvor krop og bevægelse får lov at tale. Danserum er for dig, der ønsker at mærke efter, slippe kontrollen og finde hjem i din egen krop gennem dans og bevægelse.',
-		icon: 'circle'
+			'En individuel session, hvor vi bruger dans og bevægelse til at skabe kontakt mellem krop, følelser og tanker. Vi tager udgangspunkt i det, der fylder for dig lige nu, og arbejder i dit tempo – uden krav om danseerfaring. Her er plads til at mærke efter og finde hjem i din egen krop.',
+		icon: 'circle',
+		audience: '1:1',
+		participants: 'Individuel session'
 	},
 	{
-		title: 'Kvinderum',
+		title: 'Danse- og bevægelsesterapi grupper',
 		description:
-			'Et trygt fællesskab kun for kvinder, hvor vi gennem dans, åndedræt og nærvær udforsker det at være kvinde – i kroppen, i følelserne og i fællesskabet med andre.',
-		icon: 'heart'
+			'Et forløb i mindre hold på op til 4 personer, hvor vi sammen udforsker dans og bevægelse som vej til større kropsbevidsthed og nærvær. Her er tryghed til at møde sig selv og hinanden gennem åndedræt, bevægelse og følelsesmæssig frigørelse.',
+		icon: 'heart',
+		audience: 'Hold',
+		participants: '4 personer pr. hold'
 	},
 	{
-		title: 'Retreats',
+		title: 'Coaching – Samtaleterapi 1:1',
 		description:
-			'Tag et pusterum fra hverdagen på et retreat med fordybelse, dans og bevægelsesterapi. Her er tid og ro til at komme helt hjem i dig selv, sammen med andre.',
-		icon: 'compass'
+			'En individuel samtale, hvor coaching og terapi går hånd i hånd. Vi arbejder med det, der fylder i dit liv lige nu – uanset om det handler om retning, relationer eller følelsesmæssige udfordringer. Du får redskaber og indsigter, du kan bruge i din hverdag.',
+		icon: 'compass',
+		audience: '1:1',
+		participants: 'Individuel session'
 	}
 ];
 

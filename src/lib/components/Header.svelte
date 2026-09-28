@@ -46,7 +46,7 @@
 
 <header
 	class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 {solid
-		? 'border-sand-200/60 bg-sand-50/80 shadow-sm shadow-sand-900/5 backdrop-blur-md'
+		? 'border-black/10 bg-white/80 shadow-sm shadow-black/5 backdrop-blur-md'
 		: 'border-transparent bg-transparent'}"
 >
 	<div
@@ -57,8 +57,8 @@
 		<div class="h-10 w-10 lg:hidden" aria-hidden="true"></div>
 
 		<a
-			href="#top"
-			class="flex flex-col items-center gap-1 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600 lg:flex-row lg:gap-3"
+			href="/"
+			class="flex flex-col items-center gap-1 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:flex-row lg:gap-3"
 		>
 			{#if logo}
 				<img
@@ -76,8 +76,8 @@
 			{/if}
 			<span
 				class="font-serif text-base font-semibold tracking-wide transition-colors lg:text-xl {solid
-					? 'text-sand-900'
-					: 'text-sand-50'}">{s.siteName}</span
+					? 'text-black'
+					: 'text-white'}">{s.siteName}</span
 			>
 		</a>
 
@@ -85,9 +85,9 @@
 			{#each navLinks as link}
 				<a
 					href={link.href}
-					class="relative rounded-sm text-sm font-medium tracking-wide transition-colors after:absolute after:right-0 after:-bottom-1 after:left-0 after:h-px after:origin-center after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600 {solid
-						? 'text-sand-700 hover:text-sand-900'
-						: 'text-sand-100 hover:text-sand-50'}"
+					class="relative rounded-sm text-sm font-medium tracking-wide transition-colors after:absolute after:right-0 after:-bottom-1 after:left-0 after:h-px after:origin-center after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 {solid
+						? 'text-black/70 hover:text-mint-700'
+						: 'text-white/90 hover:text-mint-400'}"
 				>
 					{link.label}
 				</a>
@@ -96,9 +96,9 @@
 
 		<button
 			type="button"
-			class="flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600 lg:hidden {solid
-				? 'text-sand-800'
-				: 'text-sand-50'}"
+			class="flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:hidden {solid
+				? 'text-black'
+				: 'text-white'}"
 			aria-label={mobileMenuOpen ? 'Luk menu' : 'Åbn menu'}
 			aria-expanded={mobileMenuOpen}
 			aria-controls="mobile-menu"
@@ -139,14 +139,14 @@
 	{#if mobileMenuOpen}
 		<nav
 			id="mobile-menu"
-			class="flex flex-col gap-1 border-t border-sand-200/60 bg-sand-50 px-6 py-4 lg:hidden"
+			class="flex flex-col gap-1 border-t border-black/10 bg-white px-6 py-4 lg:hidden"
 			aria-label="Mobilmenu"
 		>
 			{#each navLinks as link}
 				<a
 					href={link.href}
 					onclick={closeMenu}
-					class="rounded-lg px-3 py-2.5 text-base font-medium text-sand-800 transition-colors hover:bg-sand-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600"
+					class="rounded-lg px-3 py-2.5 text-base font-medium text-black transition-colors hover:bg-mint-600/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 				>
 					{link.label}
 				</a>

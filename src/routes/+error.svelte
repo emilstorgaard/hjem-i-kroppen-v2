@@ -60,15 +60,15 @@
 />
 
 <main
-	class="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-sand-100 px-6 py-24 text-center lg:px-8"
+	class="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-white px-6 py-24 text-center lg:px-8"
 	style="padding-top: var(--header-h, 4.5rem)"
 >
 	<div
-		class="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-sand-300/50 blur-3xl"
+		class="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-mint-600/60 blur-3xl"
 		aria-hidden="true"
 	></div>
 	<div
-		class="pointer-events-none absolute top-1/3 -right-32 h-112 w-md rounded-full bg-sand-400/30 blur-3xl"
+		class="pointer-events-none absolute top-1/3 -right-32 h-112 w-md rounded-full bg-mint-400/30 blur-3xl"
 		aria-hidden="true"
 	></div>
 
@@ -81,24 +81,24 @@
 			loading="lazy"
 			fetchpriority="low"
 			decoding="async"
-			class="mb-4 h-16 w-16 rounded-full object-cover shadow-lg ring-4 ring-sand-50 sm:h-32 sm:w-32"
+			class="mb-4 h-16 w-16 rounded-full object-cover shadow-lg ring-4 ring-black/10 sm:h-32 sm:w-32"
 		/>
 
-		<p class="font-serif text-6xl font-semibold text-sand-800 sm:text-7xl" role="alert">
+		<p class="font-serif text-6xl font-semibold text-black/80 sm:text-7xl" role="alert">
 			{status}
 		</p>
 
-		<h1 class="mt-4 font-serif text-2xl font-semibold text-sand-900 sm:text-3xl">
+		<h1 class="mt-4 font-serif text-2xl font-semibold text-black sm:text-3xl">
 			{heading}
 		</h1>
 
-		<p class="mt-4 text-base leading-relaxed text-sand-700 sm:text-lg">
+		<p class="mt-4 text-base leading-relaxed text-black/70 sm:text-lg">
 			{bodyText}
 		</p>
 
 		<a
 			href="/"
-			class="mt-8 rounded-full bg-sand-800 px-8 py-3 text-base font-medium text-sand-50 shadow-md transition-colors hover:bg-sand-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600"
+			class="mt-8 rounded-full bg-black px-8 py-3 text-base font-medium text-white shadow-md transition-colors hover:bg-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 		>
 			{buttonText}
 		</a>

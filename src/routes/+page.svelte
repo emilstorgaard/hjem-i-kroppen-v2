@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SeoHead from '$lib/components/SeoHead.svelte';
 	import Hero from '$lib/components/Hero.svelte';
+	import DMT from '$lib/components/DMT.svelte';
 	import About from '$lib/components/About.svelte';
 	import DanceTypes from '$lib/components/DanceTypes.svelte';
 	import Prices from '$lib/components/Prices.svelte';
@@ -44,8 +45,9 @@
 <SeoHead seo={data.page.properties} />
 
 <Hero hero={data.page.properties} />
-<About />
-<DanceTypes />
-<Prices />
+<DMT />
 <Testimonials />
+<DanceTypes />
+<!-- <Prices /> -->
+<About />
 <Contact contact={data.page.properties} />

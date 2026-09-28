@@ -7,7 +7,7 @@
 	let { children, data }: LayoutProps = $props();
 </script>
 
-<div class="flex min-h-screen flex-col bg-sand-50 font-sans text-sand-900">
+<div class="flex min-h-screen flex-col bg-white font-sans text-black">
 	<Header settings={data.settings.properties} />
 	<main id="main-content" class="flex-1">
 		{@render children()}

@@ -8,7 +8,7 @@
 
 <section
 	id="top"
-	class="relative flex min-h-svh flex-col overflow-hidden bg-sand-900"
+	class="relative flex min-h-svh flex-col overflow-hidden bg-black"
 	style="padding-top: var(--header-h, 4.5rem)"
 >
 	<video
@@ -22,40 +22,41 @@
 		<source src="/hero.mp4" type="video/mp4" />
 	</video>
 	<div
-		class="absolute inset-0 bg-linear-to-b from-sand-900/70 via-sand-900/50 to-sand-900/80"
+		class="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80"
 		aria-hidden="true"
 	></div>
 
 	<div
 		class="relative mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-6 text-center [@media(min-width:1280px)_and_(min-height:800px)]:max-w-6xl"
 	>
-		<img
-			src="/logo.jpg"
-			alt="Hjem i Kroppen logo"
-			class="hero-in mb-4 h-14 w-14 rounded-full object-cover shadow-lg ring-4 ring-sand-50 sm:mb-6 sm:h-24 sm:w-24 md:mb-8 md:h-28 md:w-28 [@media(min-width:1280px)_and_(min-height:800px)]:h-36 [@media(min-width:1280px)_and_(min-height:800px)]:w-36"
-			style="animation-delay: 100ms"
-		/>
-
-		<p
-			class="hero-in text-xs font-medium tracking-[0.3em] text-sand-200 uppercase sm:text-sm [@media(min-width:1280px)_and_(min-height:800px)]:text-base"
-			style="animation-delay: 220ms"
-		>
-			Danse- og bevægelsesterapi
-		</p>
-
 		<h1
-			class="hero-in mt-3 font-serif text-3xl leading-tight font-semibold text-sand-50 sm:mt-5 sm:text-4xl md:text-5xl lg:text-6xl [@media(min-width:1280px)_and_(min-height:800px)]:text-8xl"
+			class="hero-in mt-3 font-serif text-3xl leading-tight font-semibold text-mint-400 sm:mt-5 sm:text-4xl md:text-5xl lg:text-6xl [@media(min-width:1280px)_and_(min-height:800px)]:text-8xl"
 			style="animation-delay: 340ms"
 		>
-			{h.heroTitle}
+			<!--{h.heroTitle}-->
+			DANS DIG<br> FRI
 		</h1>
 
 		<p
-			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-sand-100 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
+			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
 			style="animation-delay: 460ms"
 		>
-			Hjem i Kroppen er et rum for dans, bevægelse og nærvær, hvor du kan mærke efter og finde ro,
-			glæde og forbindelse til dig selv &mdash; i dit eget tempo.
+			Giv slip. Giv dig hen. Dans frit.
+		</p>
+
+				<p
+			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
+			style="animation-delay: 460ms"
+		>
+			Oplev stærkere forbindelse til din krop, tydeligere kontakt mellem krop, følelser og tanker 〰 og mere frihed, bevidsthed og nærvær i dit liv.
+		</p>
+
+						<p
+			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:text-xl [@media(min-width:1280px)_and_(min-height:800px)]:max-w-3xl [@media(min-width:1280px)_and_(min-height:800px)]:text-2xl"
+			style="animation-delay: 460ms"
+		>
+		Jeg guider Fri Dans og danseterapi.
+Du er velkommen.
 		</p>
 
 		<div
@@ -64,9 +65,9 @@
 		>
 			<a
 				href="#tilbud"
-				class="rounded-full border border-sand-200/70 px-8 py-3 text-base font-medium text-sand-50 transition-all duration-300 hover:scale-[1.03] hover:bg-sand-50/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-100 active:scale-95 sm:py-3.5 [@media(min-width:1280px)_and_(min-height:800px)]:px-10 [@media(min-width:1280px)_and_(min-height:800px)]:py-4 [@media(min-width:1280px)_and_(min-height:800px)]:text-lg"
+				class="rounded-full bg-mint-700 px-8 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-400 active:scale-95 sm:py-3.5 [@media(min-width:1280px)_and_(min-height:800px)]:px-10 [@media(min-width:1280px)_and_(min-height:800px)]:py-4 [@media(min-width:1280px)_and_(min-height:800px)]:text-lg"
 			>
-				Se mine tilbud
+				FIND DIN DANS
 			</a>
 		</div>
 	</div>
@@ -77,7 +78,7 @@
 		<a
 			href="#om-mig"
 			aria-label="Scroll ned"
-			class="text-sand-100 transition-colors hover:text-sand-50"
+			class="text-white/70 transition-colors hover:text-white"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

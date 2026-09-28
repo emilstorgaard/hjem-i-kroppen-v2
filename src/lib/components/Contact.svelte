@@ -23,17 +23,17 @@
 	);
 </script>
 
-<section id="kontakt" aria-labelledby="kontakt-heading" class="bg-sand-900 px-6 py-24 lg:px-8">
+<section id="kontakt" aria-labelledby="kontakt-heading" class="bg-mint-600 px-6 py-24 lg:px-8">
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-2xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-sand-400 uppercase">Kontakt</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Kontakt</p>
 			<h2
-				class="mt-4 font-serif text-4xl font-semibold text-sand-50 sm:text-5xl"
+				class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl"
 				id="kontakt-heading"
 			>
 				Lad os finde hjem i din krop &mdash; sammen
 			</h2>
-			<p class="mt-6 text-lg leading-relaxed text-sand-300">
+			<p class="mt-6 text-lg leading-relaxed text-black/70">
 				Har du spørgsmål, eller vil du booke en tid? Så tøv ikke med at skrive eller ringe &mdash;
 				jeg glæder mig til at høre fra dig.
 			</p>
@@ -44,15 +44,15 @@
 				<a
 					href={phoneHref}
 					use:reveal
-					class="hover:shadow-sand-950/30 flex flex-col items-center gap-3 rounded-3xl bg-sand-800/60 p-8 text-center ring-1 ring-sand-700 transition-all duration-300 hover:-translate-y-1 hover:bg-sand-800 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200"
-				>
+				class="flex flex-col items-center gap-3 rounded-3xl bg-black/5 p-8 text-center ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-black/10 hover:shadow-lg hover:shadow-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+			>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="h-8 w-8 text-sand-300"
+						class="h-8 w-8 text-mint-700"
 					>
 						<path
 							stroke-linecap="round"
@@ -60,15 +60,15 @@
 							d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a11.25 11.25 0 0 1-6.238-6.238l1.293-.97a1.125 1.125 0 0 0 .417-1.173L8.963 3.102a1.125 1.125 0 0 0-1.091-.852H6.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
 						/>
 					</svg>
-					<p class="font-serif text-lg font-semibold text-sand-50">Telefon</p>
-					<p class="text-sand-300">{p.phone}</p>
+					<p class="font-serif text-lg font-semibold text-black">Telefon</p>
+					<p class="text-black/70">{p.phone}</p>
 				</a>
 			{/if}
 
 			<a
 				href={emailHref}
 				use:reveal={{ delay: 120 }}
-				class="hover:shadow-sand-950/30 flex flex-col items-center gap-3 rounded-3xl bg-sand-800/60 p-8 text-center ring-1 ring-sand-700 transition-all duration-300 hover:-translate-y-1 hover:bg-sand-800 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200"
+				class="flex flex-col items-center gap-3 rounded-3xl bg-black/5 p-8 text-center ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-black/10 hover:shadow-lg hover:shadow-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="h-8 w-8 text-sand-300"
+					class="h-8 w-8 text-mint-700"
 				>
 					<path
 						stroke-linecap="round"
@@ -84,8 +84,8 @@
 						d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
 					/>
 				</svg>
-				<p class="font-serif text-lg font-semibold text-sand-50">Email</p>
-				<p class="text-sand-300">{p.email}</p>
+				<p class="font-serif text-lg font-semibold text-black">Email</p>
+				<p class="text-black/70">{p.email}</p>
 			</a>
 
 			{#if address}
@@ -94,7 +94,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					use:reveal={{ delay: 240 }}
-					class="hover:shadow-sand-950/30 flex flex-col items-center gap-3 rounded-3xl bg-sand-800/60 p-8 text-center ring-1 ring-sand-700 transition-all duration-300 hover:-translate-y-1 hover:bg-sand-800 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200 sm:col-span-2 lg:col-span-1"
+					class="flex flex-col items-center gap-3 rounded-3xl bg-black/5 p-8 text-center ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:bg-black/10 hover:shadow-lg hover:shadow-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 sm:col-span-2 lg:col-span-1"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="h-8 w-8 text-sand-300"
+						class="h-8 w-8 text-mint-700"
 					>
 						<path
 							stroke-linecap="round"
@@ -115,8 +115,8 @@
 							d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
 						/>
 					</svg>
-					<p class="font-serif text-lg font-semibold text-sand-50">Adresse</p>
-					<p class="text-sand-300">{address}</p>
+					<p class="font-serif text-lg font-semibold text-black">Adresse</p>
+					<p class="text-black/70">{address}</p>
 				</a>
 			{/if}
 		</div>
@@ -127,13 +127,13 @@
 					href={directionsHref}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="rounded-full bg-sand-800/60 px-5 py-2.5 text-sm font-medium text-sand-200 ring-1 ring-sand-700 transition-all duration-300 hover:scale-[1.03] hover:bg-sand-800 hover:text-sand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200 active:scale-95"
+					class="rounded-full bg-black/5 px-5 py-2.5 text-sm font-medium text-black/80 ring-1 ring-black/10 transition-all duration-300 hover:scale-[1.03] hover:bg-black/10 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 active:scale-95"
 				>
 					Få rutevejledning
 				</a>
 			</div>
 
-			<div class="mt-8 overflow-hidden rounded-3xl ring-1 ring-sand-700">
+			<div class="mt-8 overflow-hidden rounded-3xl ring-1 ring-black/10">
 				<iframe
 					src={mapsEmbedSrc}
 					title="Kort over {address}"
@@ -151,7 +151,7 @@
 						href={p.instagramUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="rounded-full text-sand-300 transition-all duration-300 hover:scale-110 hover:text-sand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200"
+						class="rounded-full text-black/70 transition-all duration-300 hover:scale-110 hover:text-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 						aria-label="Følg på Instagram"
 					>
 						<svg
@@ -173,7 +173,7 @@
 						href={p.facebookUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="rounded-full text-sand-300 transition-all duration-300 hover:scale-110 hover:text-sand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-200"
+						class="rounded-full text-black/70 transition-all duration-300 hover:scale-110 hover:text-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 						aria-label="Følg på Facebook"
 					>
 						<svg

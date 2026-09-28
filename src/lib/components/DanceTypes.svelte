@@ -57,57 +57,81 @@
 	{/if}
 {/snippet}
 
-<section id="tilbud" aria-labelledby="tilbud-heading" class="bg-sand-100 px-6 py-24 lg:px-8">
+<section id="tilbud" aria-labelledby="tilbud-heading" class="bg-mint-600 px-6 py-24 lg:px-8">
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-sand-600 uppercase">Mine tilbud</p>
-			<h2
-				class="mt-4 font-serif text-4xl font-semibold text-sand-900 sm:text-5xl"
-				id="tilbud-heading"
-			>
-				Dans som vej hjem til dig selv
-			</h2>
-			<p class="mt-6 text-lg leading-relaxed text-sand-700">
-				Dans og bevægelse er et sprog, kroppen altid har kendt. I mine forløb bruger vi dansen som
-				redskab til at slippe kontrol, mærke følelser og genfinde kontakten til kroppen &mdash;
-				uanset om du kommer alene, som en del af et fællesskab, eller ønsker en dybere fordybelse på
-				et retreat.
-			</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Mine tilbud</p>
 		</div>
 
-		<div class="mt-16 grid gap-8 md:grid-cols-3">
+		<div class="mt-16 flex flex-col gap-6 md:gap-8">
 			{#each danceTypes as type, i}
 				<div
 					use:reveal={{ delay: i * 120 }}
-					class="flex flex-col rounded-3xl bg-sand-50 p-8 shadow-sm ring-1 ring-sand-200 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-sand-900/10 hover:ring-sand-300"
+					class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20 md:flex-row md:items-stretch"
 				>
+					<!-- Mobile-only cover photo (placeholder gradient until real photos are supplied) -->
 					<div
-						class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sand-200/70 text-sand-800"
+						class="flex aspect-4/3 w-full items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:hidden"
+						aria-hidden="true"
 					>
 						{@render icon(type.icon)}
 					</div>
-					<h3 class="mt-6 font-serif text-2xl font-semibold text-sand-900">{type.title}</h3>
-					<p class="mt-3 flex-1 leading-relaxed text-sand-700">{type.description}</p>
-					<a
-						href="#kontakt"
-						class="group mt-6 inline-flex items-center gap-1 rounded-sm text-sm font-medium text-sand-700 hover:text-sand-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600"
+
+					<!-- Desktop-only accent panel, replacing the cramped 3-column grid with a wide row so the longer text has room to breathe -->
+					<div
+						class="hidden shrink-0 items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:flex md:w-48 lg:w-60"
+						aria-hidden="true"
 					>
-						Læs mere / book
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+						{@render icon(type.icon)}
+					</div>
+
+					<div class="flex flex-1 flex-col p-8 md:justify-center md:p-10">
+						<h3 class="font-serif text-2xl font-semibold text-black">
+							<span class="mr-2 tracking-[0.2em] text-mint-700 md:hidden"
+								>{String(i + 1).padStart(2, '0')}</span
+							>
+							<span class="uppercase tracking-[0.15em] md:tracking-normal md:normal-case"
+								>{type.title}</span
+							>
+						</h3>
+
+						<p class="mt-3 leading-relaxed text-black/70">{type.description}</p>
+
+						<div
+							class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-mint-700"
 						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-							/>
-						</svg>
-					</a>
+							<span>{type.audience}</span>
+							<span>{type.participants}</span>
+						</div>
+
+						<a
+							href="#kontakt"
+							class="group mt-6 hidden items-center gap-1 rounded-sm text-sm font-medium text-mint-700 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:inline-flex"
+						>
+							Læs mere / book
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+								/>
+							</svg>
+						</a>
+
+						<a
+							href="#kontakt"
+							class="mt-6 inline-flex items-center justify-center rounded-full bg-mint-700 px-8 py-3.5 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
+						>
+							Læs mere / book
+						</a>
+					</div>
 				</div>
 			{/each}
 		</div>

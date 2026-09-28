@@ -89,7 +89,7 @@
 </script>
 
 {#snippet stars(rating: number)}
-	<div class="flex gap-1 text-sand-500" role="img" aria-label="{rating} ud af 5 stjerner">
+	<div class="flex gap-1 text-rust-700" role="img" aria-label="{rating} ud af 5 stjerner">
 		{#each { length: 5 } as _, i}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +110,13 @@
 
 {#snippet testimonialCard(testimonial: (typeof testimonials)[number])}
 	<figure
-		class="flex h-full flex-col rounded-3xl bg-sand-50 p-8 shadow-sm ring-1 ring-sand-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-sand-900/10"
+		class="flex h-full flex-col rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/10"
 	>
 		{@render stars(testimonial.rating)}
-		<blockquote class="mt-5 flex-1 text-lg leading-relaxed text-sand-800 italic">
+		<blockquote class="mt-5 flex-1 text-lg leading-relaxed text-black/80 italic">
 			&laquo;{testimonial.quote}&raquo;
 		</blockquote>
-		<figcaption class="mt-6 text-sm font-medium tracking-wide text-sand-600 uppercase">
+		<figcaption class="mt-6 text-sm font-medium tracking-wide text-black/60 uppercase">
 			{testimonial.name}
 		</figcaption>
 	</figure>
@@ -125,13 +125,13 @@
 <section
 	id="anmeldelser"
 	aria-labelledby="anmeldelser-heading"
-	class="bg-sand-100 px-6 py-24 lg:px-8"
+	class="bg-rust-100 px-6 py-24 lg:px-8"
 >
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-sand-600 uppercase">Anmeldelser</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Anmeldelser</p>
 			<h2
-				class="mt-4 font-serif text-4xl font-semibold text-sand-900 sm:text-5xl"
+				class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl"
 				id="anmeldelser-heading"
 			>
 				Hvad kunderne siger
@@ -157,10 +157,10 @@
 					tabindex="0"
 					role="group"
 					aria-label="Brug piletasterne for at bladre i anmeldelser"
-					class="overflow-hidden focus:outline-none"
+					class="-my-4 overflow-hidden focus:outline-none"
 				>
 					<div
-						class="flex transition-transform duration-500 ease-out"
+						class="flex py-4 transition-transform duration-500 ease-out"
 						style="transform: translateX(-{activeIndex * (100 / cardsPerView)}%)"
 					>
 						{#each testimonials as testimonial, i}
@@ -182,7 +182,7 @@
 						type="button"
 						onclick={prev}
 						aria-label="Forrige anmeldelse"
-						class="flex h-10 w-10 items-center justify-center rounded-full text-sand-600 ring-1 ring-sand-300 transition-colors hover:bg-sand-200/60 hover:text-sand-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600"
+						class="flex h-10 w-10 items-center justify-center rounded-full text-black/70 ring-1 ring-black/15 transition-colors hover:bg-rust-700/10 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust-700"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +210,7 @@
 								aria-current={i === activeIndex}
 								class={[
 									'h-2.5 rounded-full transition-all',
-									i === activeIndex ? 'w-6 bg-sand-700' : 'w-2.5 bg-sand-300 hover:bg-sand-400'
+									i === activeIndex ? 'w-6 bg-rust-700' : 'w-2.5 bg-black/15 hover:bg-black/30'
 								]}
 							></button>
 						{/each}
@@ -220,7 +220,7 @@
 						type="button"
 						onclick={next}
 						aria-label="Næste anmeldelse"
-						class="flex h-10 w-10 items-center justify-center rounded-full text-sand-600 ring-1 ring-sand-300 transition-colors hover:bg-sand-200/60 hover:text-sand-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sand-600"
+						class="flex h-10 w-10 items-center justify-center rounded-full text-black/70 ring-1 ring-black/15 transition-colors hover:bg-rust-700/10 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust-700"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
