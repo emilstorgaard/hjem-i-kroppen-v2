@@ -13,7 +13,7 @@ export const danceTypes: DanceType[] = [
 	{
 		title: 'Danse- og bevægelsesterapi 1:1',
 		description:
-			'En individuel session, hvor vi bruger dans og bevægelse til at skabe kontakt mellem krop, følelser og tanker. Vi tager udgangspunkt i det, der fylder for dig lige nu, og arbejder i dit tempo – uden krav om danseerfaring. Her er plads til at mærke efter og finde hjem i din egen krop.',
+			'En individuel session, hvor vi bruger dans og bevægelse til at skabe kontakt mellem krop, følelser og tanker – i dit eget tempo.',
 		icon: 'circle',
 		audience: '1:1',
 		participants: 'Individuel session'
@@ -21,7 +21,7 @@ export const danceTypes: DanceType[] = [
 	{
 		title: 'Danse- og bevægelsesterapi grupper',
 		description:
-			'Et forløb i mindre hold på op til 4 personer, hvor vi sammen udforsker dans og bevægelse som vej til større kropsbevidsthed og nærvær. Her er tryghed til at møde sig selv og hinanden gennem åndedræt, bevægelse og følelsesmæssig frigørelse.',
+			'Et forløb i mindre hold på op til 4 personer, hvor vi sammen udforsker dans og bevægelse som vej til større kropsbevidsthed og nærvær.',
 		icon: 'heart',
 		audience: 'Hold',
 		participants: '4 personer pr. hold'
@@ -29,7 +29,7 @@ export const danceTypes: DanceType[] = [
 	{
 		title: 'Coaching – Samtaleterapi 1:1',
 		description:
-			'En individuel samtale, hvor coaching og terapi går hånd i hånd. Vi arbejder med det, der fylder i dit liv lige nu – uanset om det handler om retning, relationer eller følelsesmæssige udfordringer. Du får redskaber og indsigter, du kan bruge i din hverdag.',
+			'En individuel samtale, hvor coaching og terapi går hånd i hånd – med redskaber, du kan bruge i din hverdag.',
 		icon: 'compass',
 		audience: '1:1',
 		participants: 'Individuel session'
