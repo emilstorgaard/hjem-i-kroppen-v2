@@ -6,8 +6,7 @@
 
 <section
 	id="top"
-	class="relative flex min-h-svh flex-col overflow-hidden bg-black"
-	style="padding-top: var(--header-h, 4.5rem)"
+	class="relative flex min-h-svh flex-col overflow-hidden bg-black max-lg:min-h-[calc(100svh-var(--header-h,4.5rem)-1px)] lg:pt-[var(--header-h,4.5rem)]"
 >
 	<video
 		class="hero-video absolute inset-0 h-full w-full object-cover"
