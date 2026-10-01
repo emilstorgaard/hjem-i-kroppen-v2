@@ -49,13 +49,13 @@
 </script>
 
 <header
-	class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 {solid
+	class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 max-lg:relative max-lg:border-black/10 max-lg:bg-white max-lg:shadow-sm max-lg:shadow-black/5 max-lg:backdrop-blur-none {solid
 		? 'border-black/10 bg-white/80 shadow-sm shadow-black/5 backdrop-blur-md'
 		: 'border-transparent bg-transparent'}"
 >
 	<div
 		bind:this={topBarEl}
-		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:px-8 lg:py-3"
+		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 max-lg:relative max-lg:justify-center lg:px-8 lg:py-3"
 	>
 		<a
 			href="/"
@@ -65,18 +65,18 @@
 				<img
 					src={mediaSrc(logo.url, 'headerLogo')}
 					srcset={mediaSrcset(logo.url, 'headerLogo')}
-					sizes="96px"
+					sizes="(min-width: 1024px) 96px, 224px"
 					alt={logo.name}
 					fetchpriority="high"
 					loading="eager"
 					decoding="async"
 					width="96"
 					height="96"
-					class="h-10 w-10 rounded-full object-cover shadow-sm lg:h-12 lg:w-12"
+					class="h-10 w-10 rounded-full object-cover shadow-sm max-lg:h-28 max-lg:w-28 lg:h-12 lg:w-12"
 				/>
 			{/if}
 			<span
-				class="font-serif text-base font-semibold tracking-wide transition-colors lg:text-xl {solid
+				class="font-serif text-base font-semibold tracking-wide transition-colors max-lg:hidden lg:text-xl {solid
 					? 'text-black'
 					: 'text-white'}">{s.siteName}</span
 			>
@@ -97,7 +97,7 @@
 
 		<button
 			type="button"
-			class="flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:hidden {solid
+			class="flex h-10 w-10 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 max-lg:absolute max-lg:top-1/2 max-lg:right-6 max-lg:-translate-y-1/2 max-lg:text-black lg:hidden {solid
 				? 'text-black'
 				: 'text-white'}"
 			aria-label={mobileMenuOpen ? 'Luk menu' : 'Åbn menu'}
