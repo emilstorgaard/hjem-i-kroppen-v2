@@ -55,11 +55,11 @@
 >
 	<div
 		bind:this={topBarEl}
-		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 max-lg:relative max-lg:justify-center lg:px-8 lg:py-3"
+		class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 max-lg:relative max-lg:justify-center max-lg:py-0 lg:px-8 lg:py-3"
 	>
 		<a
 			href="/"
-			class="flex items-center gap-2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:gap-3"
+			class="flex items-center gap-2 rounded-full max-lg:rounded-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:gap-3"
 		>
 			{#if logo}
 				<img
@@ -72,7 +72,7 @@
 					decoding="async"
 					width="96"
 					height="96"
-					class="h-10 w-10 rounded-full object-cover shadow-sm max-lg:h-28 max-lg:w-28 max-lg:shadow-none lg:h-12 lg:w-12"
+					class="h-10 w-10 rounded-full object-cover shadow-sm max-lg:h-32 max-lg:w-32 max-lg:rounded-none max-lg:object-contain max-lg:shadow-none lg:h-12 lg:w-12"
 				/>
 			{/if}
 			<span
