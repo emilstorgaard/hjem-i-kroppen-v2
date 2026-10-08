@@ -49,7 +49,7 @@
 </script>
 
 <header
-	class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 max-lg:relative max-lg:border-black/10 max-lg:bg-white max-lg:shadow-sm max-lg:shadow-black/5 max-lg:backdrop-blur-none {solid
+	class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 max-lg:relative max-lg:border-[#f6ede4] max-lg:bg-[#f6ede4] max-lg:shadow-none max-lg:backdrop-blur-none {solid
 		? 'border-black/10 bg-white/80 shadow-sm shadow-black/5 backdrop-blur-md'
 		: 'border-transparent bg-transparent'}"
 >
@@ -72,7 +72,7 @@
 					decoding="async"
 					width="96"
 					height="96"
-					class="h-10 w-10 rounded-full object-cover shadow-sm max-lg:h-28 max-lg:w-28 lg:h-12 lg:w-12"
+					class="h-10 w-10 rounded-full object-cover shadow-sm max-lg:h-28 max-lg:w-28 max-lg:shadow-none lg:h-12 lg:w-12"
 				/>
 			{/if}
 			<span
@@ -140,14 +140,14 @@
 	{#if mobileMenuOpen}
 		<nav
 			id="mobile-menu"
-			class="flex flex-col gap-1 border-t border-black/10 bg-white px-6 py-4 lg:hidden"
+			class="flex flex-col gap-1 border-t border-black/10 bg-[#f6ede4] px-6 py-4 lg:hidden"
 			aria-label="Mobilmenu"
 		>
 			{#each navLinks as link (link.label)}
 				<a
 					href={link.href}
 					onclick={closeMenu}
-					class="rounded-lg px-3 py-2.5 text-base font-medium text-black transition-colors hover:bg-mint-600/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+					class="rounded-lg px-3 py-2.5 text-base font-medium text-black transition-colors hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 				>
 					{link.label}
 				</a>

@@ -28,7 +28,7 @@
 <section
 	id="om-mig"
 	aria-labelledby="om-mig-heading"
-	class="bg-white py-24 max-md:px-0 md:px-6 lg:px-8"
+	class="bg-white pb-24 max-md:px-0 max-md:pt-0 md:px-6 md:py-24 lg:px-8"
 	style="scroll-margin-top: var(--header-h, 4.5rem)"
 >
 	<div class="mx-auto max-w-5xl">
