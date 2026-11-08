@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { testimonials } from '$lib/content';
+	import type { Testimonial } from '$lib/types/testimonial';
 	import { reveal } from '$lib/actions/reveal';
+	let { testimonials }: { testimonials: Testimonial[] } = $props();
 
-	const N = testimonials.length;
-	const isCarousel = N > 3;
+	const N = $derived(testimonials.length);
+	const isCarousel = $derived(N > 3);
 	const autoplayDelay = 3000;
 
 	let activeIndex = $state(0);
@@ -108,7 +109,7 @@
 	</div>
 {/snippet}
 
-{#snippet testimonialCard(testimonial: (typeof testimonials)[number])}
+{#snippet testimonialCard(testimonial: Testimonial)}
 	<figure
 		class="flex h-full flex-col rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/10"
 	>

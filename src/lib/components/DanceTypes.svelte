@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { danceTypes } from '$lib/content';
+	import type { DanceType } from '$lib/types/danceType';
 	import { reveal } from '$lib/actions/reveal';
+	let { danceTypes }: { danceTypes: DanceType[] } = $props();
 </script>
 
 {#snippet icon(name: string)}

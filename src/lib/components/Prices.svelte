@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { priceItems } from '$lib/content';
+	import type { PriceItem } from '$lib/types/priceItem';
 	import { reveal } from '$lib/actions/reveal';
+	let { priceItems }: { priceItems: PriceItem[] } = $props();
 </script>
 
 <section
