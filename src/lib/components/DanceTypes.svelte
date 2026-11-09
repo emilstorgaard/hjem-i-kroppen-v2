@@ -59,14 +59,16 @@
 {/snippet}
 
 <section
-	id="tilbud"
-	aria-labelledby="tilbud-heading"
+	id="terapi"
+	aria-labelledby="terapi-heading"
 	class="bg-mint-600 px-6 py-24 lg:px-8"
 	style="scroll-margin-top: var(--header-h, 4.5rem)"
 >
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Terapi</p>
+			<p id="terapi-heading" class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">
+				Terapi
+			</p>
 		</div>
 
 		<div class="mt-16 flex flex-col gap-6 md:gap-8">
@@ -75,7 +77,6 @@
 					use:reveal={{ delay: i * 120 }}
 					class="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20 md:flex-row md:items-stretch"
 				>
-					<!-- Mobile-only cover photo (placeholder gradient until real photos are supplied) -->
 					<div
 						class="flex aspect-4/3 w-full items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:hidden"
 						aria-hidden="true"
@@ -83,7 +84,6 @@
 						{@render icon(type.icon)}
 					</div>
 
-					<!-- Desktop-only accent panel, replacing the cramped 3-column grid with a wide row so the longer text has room to breathe -->
 					<div
 						class="hidden shrink-0 items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:flex md:w-80 lg:w-[26rem]"
 						aria-hidden="true"
@@ -108,7 +108,7 @@
 						</div>
 
 						<a
-							href="dancetype{i + 1}"
+							href="/{type.slug}"
 							class="group mt-6 hidden items-center gap-1 rounded-sm text-sm font-medium text-mint-700 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:inline-flex"
 						>
 							Læs mere
@@ -129,7 +129,7 @@
 						</a>
 
 						<a
-							href="dancetype{i + 1}"
+							href="/{type.slug}"
 							class="mt-6 inline-flex items-center justify-center bg-mint-700 px-8 py-3.5 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
 						>
 							Læs mere

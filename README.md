@@ -17,22 +17,31 @@ Live at [hjemikroppen.dk](https://hjemikroppen.dk).
 ```
 src/
   app.html              # HTML shell, global head tags, favicons, fonts
+  hooks.server.ts       # Security headers on every response
   lib/
-    api/umbraco.ts       # Umbraco Content Delivery API client
-    components/          # Page sections (Header, Hero, About, Prices, ...) + SeoHead
-    content.ts           # Static placeholder content not yet moved to Umbraco
-    site.ts               # Shared site-wide constants (SITE_URL)
-    styles/app.css        # Tailwind entry point + theme tokens
-    types/                # Types mirroring Umbraco content types/compositions
-    utils/media.ts        # Umbraco media URL/srcset helpers
+    actions/reveal.ts   # Scroll-reveal Svelte action
+    api/umbraco.ts      # Client-safe Umbraco helpers (media URLs)
+    components/         # Page sections (Header, Hero, About, ...), shared layouts (SplitSection) and SeoHead/StructuredData
+    content/            # Static placeholder content not yet moved to Umbraco (one file per topic)
+    navigation.ts       # Header nav links
+    server/umbraco.ts   # Server-only Umbraco Content Delivery API client (typed, timeout, 404 handling)
+    site.ts             # Shared site-wide constants (SITE_URL)
+    therapies.ts        # Slugs of the therapy sub pages (route matcher, home cards, sitemap)
+    styles/app.css      # Tailwind entry point + theme tokens
+    types/              # Types mirroring Umbraco content types/compositions + content item types
+    utils/media.ts      # Umbraco media URL/srcset helpers
+  params/therapy.ts     # Route param matcher: only the known therapy slugs reach [therapy]
   routes/
-    +layout.svelte        # Global shell (Header/Footer, JSON-LD structured data)
-    +layout.server.ts     # Loads the Umbraco "Error 404" content for +error.svelte
-    +page.svelte           # Home page, composed of section components
-    +page.server.ts        # Loads the Umbraco "forside" (home) content
-    +error.svelte           # Error page (404/500), styled with CMS-driven copy for 404
+    +layout.svelte      # Global shell (Header/Footer)
+    +layout.server.ts   # Loads Umbraco "indstillinger" and "fejlside"
+    +page.svelte        # Home page, composed of section components
+    +page.server.ts     # Loads the Umbraco "forside" content + placeholder content
+    priser/             # Prices sub page (placeholder prices from lib/content)
+    om-mig/             # About sub page (static copy for now)
+    [therapy=therapy]/  # The three therapy pages (/danseterapi, /gruppeterapi, /samtaleterapi) from one route
+    +error.svelte       # Error page (404/500), styled with CMS-driven copy for 404
     sitemap.xml/+server.ts  # Dynamically generated sitemap
-static/                  # Favicons, manifest, robots.txt
+static/                 # Favicons, manifest, robots.txt
 ```
 
 ## Prerequisites
@@ -100,12 +109,13 @@ The compose file passes `PUBLIC_UMBRACO_URL` (read from `.env`) as a Docker **bu
 
 ## Content model (Umbraco)
 
-Page content is fetched server-side via `getContentByPath` in [`src/lib/api/umbraco.ts`](src/lib/api/umbraco.ts), which calls `GET {PUBLIC_UMBRACO_URL}/umbraco/delivery/api/v2/content/item/{path}`. Each Umbraco content type has a matching TypeScript type under `src/lib/types/`:
+Page content is fetched server-side via `getContentByPath<T>` in [`src/lib/server/umbraco.ts`](src/lib/server/umbraco.ts) (server-only; components never call Umbraco directly), which calls `GET {PUBLIC_UMBRACO_URL}/umbraco/delivery/api/v2/content/item/{path}`. Each Umbraco content type has a matching TypeScript type under `src/lib/types/`:
 
-| Umbraco path | Content type | Type                                       | Used in                                          |
-| ------------ | ------------ | ------------------------------------------ | ------------------------------------------------ |
-| `forside`    | Home page    | `HomePage` (`src/lib/types/homePage.ts`)   | `src/routes/+page.server.ts` → `+page.svelte`    |
-| `fejlside`   | Error 404    | `ErrorPage` (`src/lib/types/errorPage.ts`) | `src/routes/+layout.server.ts` → `+error.svelte` |
+| Umbraco path    | Content type | Type                                       | Used in                                          |
+| --------------- | ------------ | ------------------------------------------ | ------------------------------------------------ |
+| `forside`       | Home page    | `HomePage` (`src/lib/types/homePage.ts`)   | `src/routes/+page.server.ts` → `+page.svelte`    |
+| `indstillinger` | Settings     | `Settings` (`src/lib/types/settings.ts`)   | `src/routes/+layout.server.ts` → Header/Footer   |
+| `fejlside`      | Error 404    | `ErrorPage` (`src/lib/types/errorPage.ts`) | `src/routes/+layout.server.ts` → `+error.svelte` |
 
 All page content types compose `SeoProperties` (`src/lib/types/seo.ts`: `metaTitle`, `metaDescription`, optional `ogImage`), rendered by the shared [`SeoHead.svelte`](src/lib/components/SeoHead.svelte) component (title, description, canonical, Open Graph, Twitter card tags).
 

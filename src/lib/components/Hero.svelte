@@ -30,7 +30,6 @@
 			class="hero-in mt-3 font-serif text-3xl leading-tight font-semibold text-mint-400 sm:mt-5 sm:text-4xl md:text-5xl lg:mt-0 lg:text-[length:clamp(2.25rem,10svh,6rem)]"
 			style="animation-delay: 340ms"
 		>
-			<!--{h.heroTitle}-->
 			DANS DIG<br /> FRI
 		</h1>
 
@@ -61,7 +60,7 @@
 			style="animation-delay: 580ms"
 		>
 			<a
-				href="#tilbud"
+				href="#terapi"
 				class="rounded-full bg-mint-700 px-8 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-400 active:scale-95 sm:py-3.5 lg:px-[clamp(1.75rem,4svh,2.5rem)] lg:py-[clamp(0.6rem,1.8svh,1rem)] lg:text-[length:clamp(0.95rem,2.2svh,1.125rem)]"
 			>
 				FIND DIN DANS

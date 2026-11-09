@@ -13,13 +13,10 @@
 	let topBarEl: HTMLDivElement | undefined = $state();
 	let scrolled = $state(false);
 
-	// Only the homepage has a dark hero for the header to float over - every other page (incl. the error page) needs a solid header from the start.
 	const isHome = $derived(page.url.pathname === '/');
 
-	// Solid background once scrolled past the hero (or while the mobile menu is open) - transparent over the hero video otherwise.
 	const solid = $derived(!isHome || scrolled || mobileMenuOpen);
 
-	// Expose the header's height as a CSS var so sections below can clear it exactly (instead of a guessed padding value).
 	$effect(() => {
 		const el = topBarEl;
 		if (!el) return;

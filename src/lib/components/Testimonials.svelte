@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { Testimonial } from '$lib/types/testimonial';
+	import TestimonialCard from '$lib/components/TestimonialCard.svelte';
 	import { reveal } from '$lib/actions/reveal';
 	let { testimonials }: { testimonials: Testimonial[] } = $props();
 
 	const N = $derived(testimonials.length);
-	const isCarousel = $derived(N > 3);
+	const isCarousel = $derived(N > 1);
+	const gridOnDesktop = $derived(N <= 3);
 	const autoplayDelay = 3000;
 
 	let activeIndex = $state(0);
@@ -89,40 +91,6 @@
 	});
 </script>
 
-{#snippet stars(rating: number)}
-	<div class="flex gap-1 text-rust-700" role="img" aria-label="{rating} ud af 5 stjerner">
-		{#each { length: 5 } as _, i (i)}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-				fill={i < rating ? 'currentColor' : 'none'}
-				stroke="currentColor"
-				stroke-width="1"
-				aria-hidden="true"
-				class="h-5 w-5"
-			>
-				<path
-					d="M10 1.5l2.59 5.25 5.79.84-4.19 4.08.99 5.77L10 14.77l-5.18 2.67.99-5.77-4.19-4.08 5.79-.84L10 1.5z"
-				/>
-			</svg>
-		{/each}
-	</div>
-{/snippet}
-
-{#snippet testimonialCard(testimonial: Testimonial)}
-	<figure
-		class="flex h-full flex-col rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/10"
-	>
-		{@render stars(testimonial.rating)}
-		<blockquote class="mt-5 flex-1 text-lg leading-relaxed text-black/80 italic">
-			&laquo;{testimonial.quote}&raquo;
-		</blockquote>
-		<figcaption class="mt-6 text-sm font-medium tracking-wide text-black/60 uppercase">
-			{testimonial.name}
-		</figcaption>
-	</figure>
-{/snippet}
-
 <section
 	id="anmeldelser"
 	aria-labelledby="anmeldelser-heading"
@@ -143,7 +111,7 @@
 		{#if isCarousel}
 			<div
 				bind:this={regionEl}
-				class="mt-16"
+				class={['mt-16', gridOnDesktop && 'lg:hidden']}
 				role="region"
 				aria-roledescription="karrusel"
 				aria-label="Anmeldelser"
@@ -173,7 +141,7 @@
 								aria-roledescription="slide"
 								aria-label="{i + 1} af {N}"
 							>
-								{@render testimonialCard(testimonial)}
+								<TestimonialCard {testimonial} />
 							</div>
 						{/each}
 					</div>
@@ -238,11 +206,18 @@
 					</button>
 				</div>
 			</div>
-		{:else}
-			<div class="mt-16 grid gap-8 md:grid-cols-3">
+		{/if}
+
+		{#if !isCarousel || gridOnDesktop}
+			<div
+				class={[
+					'mt-16 gap-8',
+					isCarousel ? 'hidden lg:grid lg:grid-cols-3' : 'grid md:grid-cols-3'
+				]}
+			>
 				{#each testimonials as testimonial, i (testimonial.name)}
 					<div use:reveal={{ delay: i * 120 }}>
-						{@render testimonialCard(testimonial)}
+						<TestimonialCard {testimonial} />
 					</div>
 				{/each}
 			</div>

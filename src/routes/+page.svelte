@@ -20,7 +20,5 @@
 <DMT />
 <Testimonials testimonials={data.testimonials} />
 <DanceTypes danceTypes={data.danceTypes} />
-<!-- <Prices priceItems={data.priceItems} /> -->
 <About />
-<!-- <Contact contact={data.page.properties} /> -->
 <ContactV2 contact={data.page.properties} />

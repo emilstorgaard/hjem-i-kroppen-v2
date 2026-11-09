@@ -34,7 +34,6 @@
 	<div class="mx-auto max-w-5xl">
 		<h2 id="om-mig-heading" class="sr-only">Om mig &mdash; Rikke, danse- og bevægelsesterapeut</h2>
 
-		<!-- Mobile: full-width image with the text overlaid -->
 		<div class="md:hidden">
 			<div class="relative aspect-square w-full overflow-hidden bg-black/5" use:reveal>
 				<img
@@ -59,13 +58,11 @@
 				</div>
 			</div>
 
-			<!-- TODO: point to the dedicated About page once it exists -->
 			<div class="mt-8 flex justify-center px-6" use:reveal={{ delay: 150 }}>
 				{@render readMore()}
 			</div>
 		</div>
 
-		<!-- Tablet/desktop: two boxes - image on the left, text on the right -->
 		<div class="hidden gap-6 md:grid md:grid-cols-2 lg:gap-8">
 			<div
 				use:reveal
@@ -88,8 +85,8 @@
 					Danse- og bevægelsesterapeut
 				</p>
 				<p class="mt-6 leading-relaxed text-black/70">
-					Jeg brænder for at hjælpe mennesker med at finde hjem i deres krop gennem dans,
-					bevægelse og nærvær.
+					Jeg brænder for at hjælpe mennesker med at finde hjem i deres krop gennem dans, bevægelse
+					og nærvær.
 				</p>
 				<div class="mt-8">
 					{@render readMore()}
