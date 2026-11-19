@@ -7,6 +7,14 @@ services:
         PUBLIC_UMBRACO_URL: ${PUBLIC_UMBRACO_URL}
     container_name: hjem-i-kroppen-frontend
     restart: unless-stopped
+    environment:
+      # Server-side only; the browser never talks to the booking API directly.
+      - BOOKING_API_URL=${DOCKER_BOOKING_API_URL:-http://hjem-i-kroppen-booking-api:8080}
+      # Public URL of the site. Required behind the reverse proxy, otherwise SvelteKit rejects form POSTs (CSRF check).
+      - ORIGIN=${ORIGIN:-https://hjemikroppen.dk}
+      # The reverse proxy adds the visitor's IP to X-Forwarded-For; it is forwarded to the API for per-visitor rate limiting.
+      - ADDRESS_HEADER=X-Forwarded-For
+      - XFF_DEPTH=1
     networks:
       - proxy-net
 

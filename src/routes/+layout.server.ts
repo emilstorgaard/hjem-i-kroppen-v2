@@ -3,7 +3,7 @@ import type { Settings } from '$lib/types/settings';
 import type { ErrorPage } from '$lib/types/errorPage';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load: LayoutServerLoad = async ({ fetch, locals }) => {
 	const [settings, errorPage] = await Promise.all([
 		getContentByPath<Settings>('indstillinger', fetch),
 		getContentByPath<ErrorPage>('fejlside', fetch).catch(() => null)
@@ -11,6 +11,8 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 
 	return {
 		settings,
-		errorPage
+		errorPage,
+		// For display and routing only (header menu, guards); the API authorizes every call itself.
+		user: locals.user
 	};
 };

@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
+	import type { TherapySlug } from '$lib/therapies';
 	import type { BookingOption } from '$lib/types/bookingOption';
 
-	let { options }: { options: BookingOption[] } = $props();
+	let { options, therapy }: { options: BookingOption[]; therapy: TherapySlug } = $props();
+
+	const bookingHref = (option: BookingOption) =>
+		option.seriesId ? `/book/serie/${option.seriesId}` : `/book?kategori=${therapy}`;
 </script>
 
 <section aria-labelledby="booking-options-heading" class="bg-white px-6 py-16 lg:px-8 lg:py-24">
@@ -24,14 +28,13 @@
 					class="flex flex-col gap-5 rounded-3xl bg-mint-600/40 p-6 text-black ring-1 ring-black/10 transition-all duration-300 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-8"
 				>
 					<h3 class="font-serif text-xl font-semibold lg:text-2xl">{option.title}</h3>
-					<!-- TODO: Connect to the booking system. Intentionally inactive for now. -->
-					<button
-						type="button"
+					<a
+						href={bookingHref(option)}
 						aria-label="Book {option.title}"
 						class="inline-flex shrink-0 items-center justify-center rounded-full bg-mint-700 px-8 py-3 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-all duration-300 hover:scale-[1.03] hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 active:scale-95"
 					>
 						Book
-					</button>
+					</a>
 				</li>
 			{/each}
 		</ul>

@@ -19,6 +19,21 @@
 			metaTitle: 'Error 404',
 			metaDescription: 'Error 404'
 		},
+		403: {
+			heading: 'Ingen adgang',
+			bodyText:
+				'Du har ikke adgang til denne side. Log ind med en anden bruger, eller gå tilbage til forsiden.',
+			buttonText: 'Gå til forsiden',
+			metaTitle: 'Ingen adgang',
+			metaDescription: 'Ingen adgang'
+		},
+		503: {
+			heading: 'Bookingsystemet svarer ikke',
+			bodyText: 'Vi kan ikke få forbindelse til bookingsystemet lige nu. Prøv igen om lidt.',
+			buttonText: 'Gå til forsiden',
+			metaTitle: 'Midlertidigt utilgængelig',
+			metaDescription: 'Bookingsystemet er midlertidigt utilgængeligt.'
+		},
 		500: {
 			heading: 'Der gik noget galt',
 			bodyText: 'Vi har problemer med at vise siden lige nu. Prøv igen om lidt.',

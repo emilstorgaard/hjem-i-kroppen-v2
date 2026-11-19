@@ -10,6 +10,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 	const home = await getContentByPath<HomePage>('forside', fetch).catch(() => null);
 
 	return {
+		slug: params.therapy as TherapySlug,
 		// TODO: Replace with `await getContentByPath<TherapyPage>(params.therapy, fetch)` once the pages exist in Umbraco.
 		page: therapyPages[params.therapy as TherapySlug],
 		contact: home?.properties ?? null,

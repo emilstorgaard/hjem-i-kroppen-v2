@@ -1,5 +1,9 @@
-# allow crawling everything by default
+# allow crawling everything by default, except personal and admin pages
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /min-side
+Disallow: /login
+Disallow: /opret-bruger
 
 Sitemap: https://hjemikroppen.dk/sitemap.xml

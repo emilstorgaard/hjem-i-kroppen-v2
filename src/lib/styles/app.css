@@ -72,3 +72,43 @@ html {
 		transform: translateY(0);
 	}
 }
+/* Form controls shared by the booking, profile and admin pages. */
+@layer components {
+	.field-input {
+		@apply w-full rounded-2xl border-0 bg-white px-4 py-2.5 text-sm text-black ring-1 ring-black/15 transition-shadow placeholder:text-black/35 focus:ring-2 focus:ring-mint-700 focus:outline-none disabled:bg-black/5 disabled:text-black/50;
+	}
+
+	.field-input-error {
+		@apply ring-rust-700/60 focus:ring-rust-700;
+	}
+
+	/* Filter pills on the booking and admin pages. */
+	.chip {
+		@apply inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium whitespace-nowrap text-black/75 ring-1 ring-black/15 transition-colors hover:text-mint-700 hover:ring-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700;
+	}
+
+	.chip-sm {
+		@apply px-3 py-1.5 text-xs;
+	}
+
+	.chip-active {
+		@apply bg-mint-700 text-white ring-mint-700 hover:text-white;
+	}
+
+	.week-arrow {
+		@apply flex h-10 w-10 items-center justify-center rounded-full bg-white text-xl text-black/70 ring-1 ring-black/15 transition-colors hover:text-mint-700 hover:ring-mint-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700;
+	}
+}
+
+/* Pulsing placeholders while the calendar loads. */
+@media (prefers-reduced-motion: no-preference) {
+	.skeleton {
+		animation: skeleton-pulse 1.6s ease-in-out infinite;
+	}
+}
+
+@keyframes skeleton-pulse {
+	50% {
+		opacity: 0.5;
+	}
+}

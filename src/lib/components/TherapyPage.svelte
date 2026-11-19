@@ -6,15 +6,17 @@
 	import { reveal } from '$lib/actions/reveal';
 	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
+	import type { TherapySlug } from '$lib/therapies';
 	import type { TherapyPageProperties } from '$lib/types/therapyPage';
 
 	type Props = {
+		slug: TherapySlug;
 		therapy: TherapyPageProperties;
 		contact: ContactProperties | null;
 		addresses: Address[];
 	};
 
-	let { therapy, contact, addresses }: Props = $props();
+	let { slug, therapy, contact, addresses }: Props = $props();
 </script>
 
 <SplitSection image={therapy.image?.[0]} imageAlt={therapy.heading}>
@@ -41,7 +43,7 @@
 {/if}
 
 {#if therapy.bookingOptions?.length}
-	<BookingOptions options={therapy.bookingOptions} />
+	<BookingOptions options={therapy.bookingOptions} therapy={slug} />
 {/if}
 
 <TherapyContact {contact} {addresses} therapyName={therapy.heading} />

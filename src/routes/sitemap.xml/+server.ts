@@ -8,6 +8,7 @@ const pages: { path: string; slug?: string; priority: string; changefreq: string
 	{ path: '/', slug: 'forside', priority: '1.0', changefreq: 'monthly' },
 	{ path: '/priser', /* slug: 'priser', */ priority: '0.8', changefreq: 'monthly' },
 	{ path: '/om-mig', /* slug: 'om-mig', */ priority: '0.8', changefreq: 'monthly' },
+	{ path: '/book', priority: '0.9', changefreq: 'daily' },
 	...THERAPY_SLUGS.map((slug) => ({ path: `/${slug}`, priority: '0.8', changefreq: 'monthly' }))
 ];
 
