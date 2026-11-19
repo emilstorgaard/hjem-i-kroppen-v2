@@ -6,7 +6,7 @@
 	import About from '$lib/components/About.svelte';
 	import DanceTypes from '$lib/components/DanceTypes.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
-	import ContactV2 from '$lib/components/ContactV2.svelte';
+	import Contact from '$lib/components/Contact.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -21,4 +21,4 @@
 <Testimonials testimonials={data.testimonials} />
 <DanceTypes danceTypes={data.danceTypes} />
 <About />
-<ContactV2 contact={data.page.properties} />
+<Contact contact={data.page.properties} addresses={data.addresses} />

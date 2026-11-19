@@ -2,7 +2,7 @@
 	import SplitSection from '$lib/components/SplitSection.svelte';
 	import Testimonials from '$lib/components/Testimonials.svelte';
 	import BookingOptions from '$lib/components/BookingOptions.svelte';
-	import TherapyContact from '$lib/components/TherapyContact.svelte';
+	import Contact from '$lib/components/Contact.svelte';
 	import { reveal } from '$lib/actions/reveal';
 	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
@@ -46,4 +46,4 @@
 	<BookingOptions options={therapy.bookingOptions} therapy={slug} />
 {/if}
 
-<TherapyContact {contact} {addresses} therapyName={therapy.heading} />
+<Contact {contact} {addresses} bookHref="/book?kategori={slug}" mailSubject="Henvendelse om {therapy.heading}" />

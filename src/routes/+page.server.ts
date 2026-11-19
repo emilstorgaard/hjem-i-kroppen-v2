@@ -1,4 +1,5 @@
 import { getContentByPath } from '$lib/server/umbraco';
+import { addresses } from '$lib/content/addresses';
 import { danceTypes } from '$lib/content/danceTypes';
 import { testimonials } from '$lib/content/testimonials';
 import type { HomePage } from '$lib/types/homePage';
@@ -11,6 +12,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	return {
 		page,
 		danceTypes,
-		testimonials
+		testimonials,
+		// TODO: Fetch the addresses from Umbraco (same list as on the therapy pages).
+		addresses
 	};
 };
