@@ -14,7 +14,6 @@
 	import Field from '$lib/components/booking/Field.svelte';
 	import FormField from '$lib/components/booking/FormField.svelte';
 	import Modal from '$lib/components/booking/Modal.svelte';
-	import { CATEGORY_LABEL } from '$lib/booking/categories';
 	import { feedback } from '$lib/booking/enhance';
 	import { fieldError, resultFor } from '$lib/booking/forms';
 	import { paramsFrom } from '$lib/booking/params';
@@ -92,7 +91,7 @@
 	<dl class="grid grid-cols-2 gap-4 rounded-3xl bg-mint-600/50 p-6 text-sm lg:col-span-2">
 		<div>
 			<dt class="text-black/55">Kategori</dt>
-			<dd class="font-medium">{CATEGORY_LABEL[s.category]}</dd>
+			<dd class="font-medium">{s.category.name}</dd>
 		</div>
 		<div>
 			<dt class="text-black/55">Status</dt>

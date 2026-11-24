@@ -12,11 +12,9 @@
 	import Field from '$lib/components/booking/Field.svelte';
 	import FormField from '$lib/components/booking/FormField.svelte';
 	import Modal from '$lib/components/booking/Modal.svelte';
-	import { CATEGORIES, CATEGORY_LABEL } from '$lib/booking/categories';
 	import { feedback } from '$lib/booking/enhance';
 	import { fieldError, resultFor } from '$lib/booking/forms';
 	import { withParams } from '$lib/booking/url';
-	import type { ServiceCategory } from '$lib/types/booking';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -34,11 +32,10 @@
 	const v = $derived(saveResult?.values);
 
 	// Follows the edited item / refilled values, but the select can change it.
-	let category = $derived<ServiceCategory>(
-		(v?.category as ServiceCategory) ?? editing?.category ?? 'Group'
+	let categoryId = $derived<string>(
+		v?.categoryId ?? editing?.category.id ?? data.categories[0]?.id ?? ''
 	);
 	let pending = $state(false);
-	const individual = $derived(category !== 'Group');
 
 	const close = () => goto(closeHref, { noScroll: true, keepFocus: true });
 </script>
@@ -53,7 +50,11 @@
 	intro="Ydelserne bestemmer kategori, standardvarighed og antal pladser for nye tider."
 >
 	{#snippet actions()}
-		<Button href={withParams(page.url, { ny: '1', rediger: null })} size="sm">Opret ydelse</Button>
+		<Button href="/admin/kategorier" size="sm" variant="ghost">Kategorier</Button>
+		{#if data.categories.length > 0}
+			<Button href={withParams(page.url, { ny: '1', rediger: null })} size="sm">Opret ydelse</Button
+			>
+		{/if}
 	{/snippet}
 </AdminHeader>
 
@@ -62,11 +63,13 @@
 		href={withParams(page.url, { kategori: null })}
 		class="chip chip-sm {!data.filters.kategori ? 'chip-active' : ''}">Alle kategorier</a
 	>
-	{#each CATEGORIES as c (c)}
+	{#each data.categories as c (c.id)}
 		<a
-			href={withParams(page.url, { kategori: c })}
-			class="chip chip-sm {data.filters.kategori === c ? 'chip-active' : ''}">{CATEGORY_LABEL[c]}</a
+			href={withParams(page.url, { kategori: c.slug })}
+			class="chip chip-sm {data.filters.kategori === c.slug ? 'chip-active' : ''}"
 		>
+			{c.name}
+		</a>
 	{/each}
 	<span class="mx-1 w-px bg-black/10" aria-hidden="true"></span>
 	<a
@@ -80,6 +83,13 @@
 </div>
 
 {#if data.loadError}<Alert class="mt-6" message={data.loadError} />{/if}
+{#if !data.loadError && data.categories.length === 0}
+	<Alert
+		class="mt-6"
+		tone="info"
+		message="Der er ingen kategorier endnu. Opret en kategori, før du opretter ydelser."
+	/>
+{/if}
 {#if rowError}<Alert class="mt-6" message={rowError} />{/if}
 
 <div class="mt-6">
@@ -99,7 +109,7 @@
 		empty="Ingen ydelser endnu."
 	>
 		{#snippet row(t)}
-			{@const siblings = data.serviceTypes.filter((x) => x.category === t.category)}
+			{@const siblings = data.serviceTypes.filter((x) => x.category.id === t.category.id)}
 			{@const index = siblings.indexOf(t)}
 			<td class="px-4 py-3">
 				<div class="flex items-center gap-1">
@@ -124,7 +134,7 @@
 						>{t.description}</span
 					>{/if}
 			</td>
-			<td class="px-4 py-3">{CATEGORY_LABEL[t.category]}</td>
+			<td class="px-4 py-3">{t.category.name}</td>
 			<td class="px-4 py-3 tabular-nums">{t.defaultDurationMinutes} min.</td>
 			<td class="px-4 py-3 tabular-nums">{t.defaultCapacity}</td>
 			<td class="px-4 py-3"
@@ -176,15 +186,22 @@
 		{#if editing}<input type="hidden" name="id" value={editing.id} />{/if}
 		{#if saveResult?.message && !saveResult.success}<Alert message={saveResult.message} />{/if}
 		<div class="grid gap-4 sm:grid-cols-2">
-			<Field label="Kategori" for="st-category" required error={fieldError(saveResult, 'category')}>
+			<Field
+				label="Kategori"
+				for="st-category"
+				required
+				error={fieldError(saveResult, 'categoryId')}
+			>
 				<select
 					id="st-category"
-					name="category"
+					name="categoryId"
 					class="field-input"
-					bind:value={category}
+					bind:value={categoryId}
 					data-autofocus
 				>
-					{#each CATEGORIES as c (c)}<option value={c}>{CATEGORY_LABEL[c]}</option>{/each}
+					{#each data.categories as c (c.id)}
+						<option value={c.id}>{c.name}</option>
+					{/each}
 				</select>
 			</Field>
 			<FormField
@@ -215,9 +232,7 @@
 				min={1}
 				max={500}
 				required
-				value={individual ? '1' : (v?.defaultCapacity ?? String(editing?.defaultCapacity ?? 8))}
-				readonly={individual}
-				hint={individual ? 'Individuelle ydelser har altid 1 plads.' : undefined}
+				value={v?.defaultCapacity ?? String(editing?.defaultCapacity ?? 1)}
 				error={fieldError(saveResult, 'defaultCapacity')}
 			/>
 			<FormField

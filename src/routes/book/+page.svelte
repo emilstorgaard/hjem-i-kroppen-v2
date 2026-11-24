@@ -8,12 +8,6 @@
 	import PageShell from '$lib/components/booking/PageShell.svelte';
 	import SessionCard from '$lib/components/booking/SessionCard.svelte';
 	import SessionSheet from '$lib/components/booking/SessionSheet.svelte';
-	import {
-		CATEGORIES,
-		CATEGORY_LABEL,
-		CATEGORY_SLUG,
-		CATEGORY_STYLE
-	} from '$lib/booking/categories';
 	import { resultFor } from '$lib/booking/forms';
 	import { actionUrl, withParams } from '$lib/booking/url';
 	import {
@@ -53,7 +47,7 @@
 	const categoryServiceTypes = $derived(
 		data.filters.kategori
 			? data.serviceTypes
-					.filter((t) => CATEGORY_SLUG[t.category] === data.filters.kategori)
+					.filter((t) => t.category.slug === data.filters.kategori)
 					.sort((a, b) => a.sortOrder - b.sortOrder)
 			: []
 	);
@@ -183,16 +177,14 @@
 				aria-current={!data.filters.kategori ? 'true' : undefined}
 				class="chip {!data.filters.kategori ? 'chip-active' : ''}">Alle</a
 			>
-			{#each CATEGORIES as category (category)}
-				{@const active = data.filters.kategori === CATEGORY_SLUG[category]}
+			{#each data.categories as category (category.id)}
+				{@const active = data.filters.kategori === category.slug}
 				<a
-					href={filterHref({ kategori: CATEGORY_SLUG[category], ydelse: null })}
+					href={filterHref({ kategori: category.slug, ydelse: null })}
 					aria-current={active ? 'true' : undefined}
 					class="chip {active ? 'chip-active' : ''}"
 				>
-					<span class="h-2 w-2 rounded-full {CATEGORY_STYLE[category].dot}" aria-hidden="true"
-					></span>
-					{CATEGORY_LABEL[category]}
+					{category.name}
 				</a>
 			{/each}
 			<a
@@ -245,16 +237,7 @@
 			<MiniMonth monday={data.monday} today={data.today} weekHref={dayWeekHref} />
 			<div class="rounded-3xl bg-mint-600/50 p-5 text-sm text-black/70">
 				<p class="font-serif text-lg font-semibold text-black">Godt at vide</p>
-				<ul class="mt-2 flex flex-col gap-1.5">
-					{#each CATEGORIES as category (category)}
-						<li class="flex items-center gap-2">
-							<span class="h-2 w-2 rounded-full {CATEGORY_STYLE[category].dot}" aria-hidden="true"
-							></span>
-							{CATEGORY_LABEL[category]}
-						</li>
-					{/each}
-				</ul>
-				<p class="mt-3 leading-relaxed">Du kan aflyse din booking, indtil tiden starter.</p>
+				<p class="mt-2 leading-relaxed">Du kan aflyse din booking, indtil tiden starter.</p>
 			</div>
 		</aside>
 

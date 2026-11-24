@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CATEGORY_LABEL, CATEGORY_STYLE } from '$lib/booking/categories';
+	import { CATEGORY_STYLE } from '$lib/booking/categories';
 	import { formatDateTime, formatTimeRange, formatWeekdayDate } from '$lib/utils/date';
 	import type { BookingResponse } from '$lib/types/booking';
 	import Badge from './Badge.svelte';
@@ -14,15 +14,13 @@
 
 <div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
 	<div class="flex items-start gap-3">
-		<span
-			class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full {CATEGORY_STYLE[booking.category].dot}"
-			aria-hidden="true"
+		<span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full {CATEGORY_STYLE.dot}" aria-hidden="true"
 		></span>
 		<div>
 			<p class="font-semibold capitalize">{formatWeekdayDate(booking.startsAt)}</p>
 			<p class="text-sm text-black/65 tabular-nums">
 				kl. {formatTimeRange(booking.startsAt, booking.endsAt)} · {booking.serviceTypeName}
-				<span class="sr-only">({CATEGORY_LABEL[booking.category]})</span>
+				<span class="sr-only">({booking.category.name})</span>
 			</p>
 			{#if booking.location}<p class="text-sm text-black/55">{booking.location}</p>{/if}
 			{#if booking.note}<p class="mt-1 text-sm text-black/55 italic">"{booking.note}"</p>{/if}

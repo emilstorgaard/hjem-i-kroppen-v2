@@ -35,7 +35,7 @@
 	noindex
 />
 
-<AdminHeader title="Forløb" intro="Gruppeforløb, hvor deltagerne booker alle tider på én gang.">
+<AdminHeader title="Forløb" intro="Forløb, hvor deltagerne booker alle tider på én gang.">
 	{#snippet actions()}
 		<Button href={withParams(page.url, { ny: '1' })} size="sm">Opret forløb</Button>
 	{/snippet}
@@ -127,9 +127,8 @@
 >
 	{#if data.serviceTypes.length === 0}
 		<Alert tone="info"
-			>Forløb kan kun oprettes for gruppeydelser. <a
-				href="/admin/ydelser?ny=1"
-				class="font-semibold underline">Opret en gruppeydelse</a
+			>Der er ingen ydelser endnu. <a href="/admin/ydelser?ny=1" class="font-semibold underline"
+				>Opret en ydelse</a
 			> først.</Alert
 		>
 	{:else}

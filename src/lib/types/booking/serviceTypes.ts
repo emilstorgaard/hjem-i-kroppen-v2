@@ -1,9 +1,10 @@
-import type { Guid, IsoDateTime, PageQuery, ServiceCategory } from './common';
+import type { Guid, IsoDateTime, PageQuery } from './common';
+import type { ServiceCategorySummary } from './serviceCategories';
 
 /** An active service type as shown to users. */
 export type ServiceTypeResponse = {
 	id: Guid;
-	category: ServiceCategory;
+	category: ServiceCategorySummary;
 	name: string;
 	description: string | null;
 	defaultDurationMinutes: number;
@@ -17,12 +18,12 @@ export type AdminServiceTypeResponse = ServiceTypeResponse & {
 	updatedAt: IsoDateTime;
 };
 
-export type ListPublicServiceTypesQuery = PageQuery & { category?: ServiceCategory };
+export type ListPublicServiceTypesQuery = PageQuery & { categoryId?: Guid };
 export type ListServiceTypesQuery = ListPublicServiceTypesQuery & { isActive?: boolean };
 
 /** Used to create and to fully replace a service type. */
 export type ServiceTypeRequest = {
-	category: ServiceCategory;
+	categoryId: Guid;
 	name: string;
 	description: string | null;
 	defaultDurationMinutes: number;

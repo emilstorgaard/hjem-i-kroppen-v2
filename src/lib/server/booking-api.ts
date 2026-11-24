@@ -183,6 +183,10 @@ export function createBookingApi(ctx: BookingApiContext) {
 			login: (body: T.LoginRequest) => post<T.LoginResponse>('/auth/login', body),
 			register: (body: T.RegisterRequest) => post<T.UserResponse>('/auth/register', body)
 		},
+		serviceCategories: {
+			list: (query: T.ListServiceCategoriesQuery = {}) =>
+				get<T.Paged<T.ServiceCategoryResponse>>('/service-categories', query)
+		},
 		serviceTypes: {
 			list: (query: T.ListPublicServiceTypesQuery = {}) =>
 				get<T.Paged<T.ServiceTypeResponse>>('/service-types', query),
@@ -217,6 +221,16 @@ export function createBookingApi(ctx: BookingApiContext) {
 			}
 		},
 		admin: {
+			serviceCategories: {
+				list: (query: T.ListServiceCategoriesQuery = {}) =>
+					get<T.Paged<T.AdminServiceCategoryResponse>>('/admin/service-categories', query),
+				get: (id: T.Guid) => get<T.AdminServiceCategoryResponse>(`/admin/service-categories/${id}`),
+				create: (body: T.ServiceCategoryRequest) =>
+					post<T.AdminServiceCategoryResponse>('/admin/service-categories', body),
+				update: (id: T.Guid, body: T.ServiceCategoryRequest) =>
+					put<T.AdminServiceCategoryResponse>(`/admin/service-categories/${id}`, body),
+				delete: (id: T.Guid) => del(`/admin/service-categories/${id}`)
+			},
 			serviceTypes: {
 				list: (query: T.ListServiceTypesQuery = {}) =>
 					get<T.Paged<T.AdminServiceTypeResponse>>('/admin/service-types', query),

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CATEGORY_LABEL, CATEGORY_STYLE } from '$lib/booking/categories';
+	import { CATEGORY_STYLE } from '$lib/booking/categories';
 	import { SPOTS_TONE_CLASS, spotsLabel } from '$lib/booking/spots';
 	import { formatTimeRange, formatWeekdayDate } from '$lib/utils/date';
 	import type { SessionResponse } from '$lib/types/booking';
@@ -25,7 +25,7 @@
 		cardIndex
 	}: Props = $props();
 
-	const style = $derived(CATEGORY_STYLE[session.category]);
+	const style = CATEGORY_STYLE;
 	const spots = $derived(spotsLabel(session.availableSpots));
 	const full = $derived(session.availableSpots <= 0 && !booked);
 </script>
@@ -54,7 +54,7 @@
 	<p class="mt-1 font-serif text-lg leading-snug font-semibold">{session.serviceTypeName}</p>
 	{#if !compact}
 		<p class="text-xs {booked ? 'text-white/75' : 'text-black/55'}">
-			{CATEGORY_LABEL[session.category]}
+			{session.category.name}
 		</p>
 	{/if}
 	{#if session.location}

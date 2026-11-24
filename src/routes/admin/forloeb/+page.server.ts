@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 				page,
 				pageSize: PAGE_SIZE
 			}),
-			api.all(api.admin.serviceTypes.list, { category: 'Group' })
+			api.all(api.admin.serviceTypes.list, {})
 		]);
 	} catch (err) {
 		if (!(err instanceof ApiError)) throw err;

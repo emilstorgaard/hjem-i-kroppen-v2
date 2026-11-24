@@ -5,7 +5,6 @@ import {
 	cancelBooking,
 	cancelSeriesBooking
 } from '$lib/server/booking-actions';
-import { categoryFromSlug } from '$lib/booking/categories';
 import { isGuid } from '$lib/booking/url';
 import {
 	dateKeyOf,
@@ -15,7 +14,7 @@ import {
 	startOfWeek,
 	todayKey
 } from '$lib/utils/date';
-import type { SessionResponse } from '$lib/types/booking';
+import type { ServiceCategoryResponse, SessionResponse } from '$lib/types/booking';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals, url, untrack }) => {
@@ -23,7 +22,6 @@ export const load: PageServerLoad = async ({ locals, url, untrack }) => {
 	const requestedWeek = parseIsoWeek(url.searchParams.get('uge'));
 	const monday = requestedWeek ?? startOfWeek(today);
 	const kategori = url.searchParams.get('kategori');
-	const category = categoryFromSlug(kategori);
 	const ydelse = url.searchParams.get('ydelse');
 	const serviceTypeId = isGuid(ydelse) ? ydelse : undefined;
 	const onlyAvailable = url.searchParams.get('ledige') === '1';
@@ -33,13 +31,14 @@ export const load: PageServerLoad = async ({ locals, url, untrack }) => {
 
 	const { from, to } = dayRangeUtc(monday, 7);
 	const { api, user } = locals;
-	const filters = { category, serviceTypeId, onlyAvailable: onlyAvailable || undefined };
 
 	const base = {
 		today,
 		monday,
 		week: isoWeekString(monday),
-		filters: { kategori: category ? kategori : null, ydelse: serviceTypeId ?? null, onlyAvailable },
+		filters: { kategori: null as string | null, ydelse: serviceTypeId ?? null, onlyAvailable },
+		/** Categories with at least one active service type, in display order. */
+		categories: [] as ServiceCategoryResponse[],
 		serviceTypes: [] as Awaited<ReturnType<typeof api.serviceTypes.list>>['items'],
 		sessions: [] as SessionResponse[],
 		/** sessionId → bookingId for the visitor's active upcoming bookings. */
@@ -51,6 +50,16 @@ export const load: PageServerLoad = async ({ locals, url, untrack }) => {
 	};
 
 	try {
+		// `?kategori=` holds the category slug (e.g. danseterapi), so links from the therapy pages keep working.
+		base.categories = await api.all(api.serviceCategories.list, {});
+		const category = base.categories.find((c) => c.slug === kategori);
+		base.filters.kategori = category?.slug ?? null;
+		const filters = {
+			categoryId: category?.id,
+			serviceTypeId,
+			onlyAvailable: onlyAvailable || undefined
+		};
+
 		const [serviceTypes, sessions, myBookings] = await Promise.all([
 			api.all(api.serviceTypes.list, {}),
 			api.all(api.sessions.list, { from, to, ...filters }),

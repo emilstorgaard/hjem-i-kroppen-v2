@@ -79,9 +79,7 @@
 							class="flex items-center justify-between gap-4 rounded-2xl bg-white p-4 ring-1 ring-black/10 transition-colors hover:ring-mint-700"
 						>
 							<span class="flex items-center gap-3">
-								<span
-									class="h-2.5 w-2.5 rounded-full {CATEGORY_STYLE[s.category].dot}"
-									aria-hidden="true"
+								<span class="h-2.5 w-2.5 rounded-full {CATEGORY_STYLE.dot}" aria-hidden="true"
 								></span>
 								<span>
 									<span class="block text-sm font-semibold tabular-nums"
@@ -166,7 +164,7 @@
 
 		<h2 class="mt-10 font-serif text-2xl font-semibold">Genveje</h2>
 		<div class="mt-4 grid gap-3 sm:grid-cols-2">
-			{#each [{ href: '/admin/sessioner', title: 'Tider', text: 'Kalender, opret og aflys tider' }, { href: '/admin/forloeb', title: 'Forløb', text: 'Gruppeforløb og deltagere' }, { href: '/admin/ydelser', title: 'Ydelser', text: 'Typer, varighed og pladser' }, { href: '/admin/brugere', title: 'Brugere', text: 'Søg, roller og adgang' }] as link (link.href)}
+			{#each [{ href: '/admin/sessioner', title: 'Tider', text: 'Kalender, opret og aflys tider' }, { href: '/admin/forloeb', title: 'Forløb', text: 'Forløb og deltagere' }, { href: '/admin/ydelser', title: 'Ydelser', text: 'Typer, varighed og pladser' }, { href: '/admin/brugere', title: 'Brugere', text: 'Søg, roller og adgang' }] as link (link.href)}
 				<a
 					href={link.href}
 					class="rounded-3xl bg-mint-600/50 p-5 transition-colors hover:bg-mint-600"

@@ -1,5 +1,6 @@
-import type { Guid, IsoDateTime, PageQuery, ServiceCategory } from './common';
+import type { Guid, IsoDateTime, PageQuery } from './common';
 import type { AdminBookingResponse, BookingResponse } from './bookings';
+import type { ServiceCategorySummary } from './serviceCategories';
 
 /** A non-cancelled session in a series as shown to users. */
 export type SeriesSessionResponse = {
@@ -22,7 +23,7 @@ export type SeriesResponse = {
 	title: string;
 	serviceTypeId: Guid;
 	serviceTypeName: string;
-	category: ServiceCategory;
+	category: ServiceCategorySummary;
 	isBookable: boolean;
 	availableSpots: number;
 	firstStartsAt: IsoDateTime | null;
@@ -39,7 +40,7 @@ export type AdminSeriesListItemResponse = {
 	title: string;
 	serviceTypeId: Guid;
 	serviceTypeName: string;
-	category: ServiceCategory;
+	category: ServiceCategorySummary;
 	isCancelled: boolean;
 	sessionCount: number;
 	participantCount: number;

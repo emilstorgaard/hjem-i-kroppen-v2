@@ -56,9 +56,8 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		nextWeek: isoWeekString(addDays(monday, 7)),
 		view,
 		filters: { serviceTypeId: serviceTypeId ?? '', includeCancelled },
-		serviceTypes: serviceTypes.toSorted(
-			(a, b) => a.category.localeCompare(b.category) || a.sortOrder - b.sortOrder
-		),
+		// The API already sorts by category, then sort order.
+		serviceTypes,
 		sessions: sessions.toSorted((a, b) => a.startsAt.localeCompare(b.startsAt)),
 		series,
 		loadError

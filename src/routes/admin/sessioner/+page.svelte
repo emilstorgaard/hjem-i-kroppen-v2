@@ -157,7 +157,7 @@
 						href="/admin/sessioner/{s.id}"
 						class="block rounded-2xl p-3 ring-1 transition-colors focus-visible:outline-2 focus-visible:outline-mint-700 {s.isCancelled
 							? 'bg-black/[0.03] text-black/45 line-through ring-black/5'
-							: CATEGORY_STYLE[s.category].card}"
+							: CATEGORY_STYLE.card}"
 					>
 						<p class="text-xs font-semibold tabular-nums">
 							{formatTimeRange(s.startsAt, s.endsAt)}

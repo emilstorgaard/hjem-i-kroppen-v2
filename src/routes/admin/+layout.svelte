@@ -9,6 +9,7 @@
 		{ href: '/admin/sessioner', label: 'Tider' },
 		{ href: '/admin/forloeb', label: 'Forløb' },
 		{ href: '/admin/ydelser', label: 'Ydelser' },
+		{ href: '/admin/kategorier', label: 'Kategorier' },
 		{ href: '/admin/bookinger', label: 'Bookinger' },
 		{ href: '/admin/brugere', label: 'Brugere' }
 	];

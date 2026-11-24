@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { CATEGORY_LABEL, CATEGORY_STYLE } from '$lib/booking/categories';
+	import { CATEGORY_STYLE } from '$lib/booking/categories';
 	import { feedback } from '$lib/booking/enhance';
 	import { fieldError, type FormResult } from '$lib/booking/forms';
 	import { SPOTS_TONE_CLASS, spotsLabel } from '$lib/booking/spots';
@@ -73,7 +73,7 @@
 <Modal
 	open={!!session}
 	title={session?.serviceTypeName ?? ''}
-	eyebrow={session ? CATEGORY_LABEL[session.category] : undefined}
+	eyebrow={session ? session.category.name : undefined}
 	{onclose}
 	{closeHref}
 	size="md"
@@ -83,7 +83,7 @@
 			<div class="flex items-start gap-3">
 				<dt class="sr-only">Tidspunkt</dt>
 				<span
-					class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full {CATEGORY_STYLE[session.category].dot}"
+					class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full {CATEGORY_STYLE.dot}"
 					aria-hidden="true"
 				></span>
 				<dd>

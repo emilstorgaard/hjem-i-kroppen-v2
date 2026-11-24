@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { feedback } from '$lib/booking/enhance';
-	import { CATEGORY_LABEL } from '$lib/booking/categories';
 	import { fieldError, type FormResult } from '$lib/booking/forms';
 	import { addDays, formatDateTime, zonedDateTimeToIso } from '$lib/utils/date';
 	import type { AdminSeriesListItemResponse, AdminServiceTypeResponse } from '$lib/types/booking';
@@ -81,7 +80,7 @@
 		>
 			<option value="" disabled>Vælg ydelse</option>
 			{#each activeTypes as t (t.id)}
-				<option value={t.id}>{t.name} ({CATEGORY_LABEL[t.category]})</option>
+				<option value={t.id}>{t.name} ({t.category.name})</option>
 			{/each}
 		</select>
 	</Field>

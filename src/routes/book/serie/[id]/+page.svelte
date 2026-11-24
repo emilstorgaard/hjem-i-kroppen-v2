@@ -7,7 +7,7 @@
 	import ConfirmDialog from '$lib/components/booking/ConfirmDialog.svelte';
 	import LoginForm from '$lib/components/booking/LoginForm.svelte';
 	import PageShell from '$lib/components/booking/PageShell.svelte';
-	import { CATEGORY_LABEL, CATEGORY_STYLE } from '$lib/booking/categories';
+	import { CATEGORY_STYLE } from '$lib/booking/categories';
 	import { feedback } from '$lib/booking/enhance';
 	import { fieldError, resultFor } from '$lib/booking/forms';
 	import { SPOTS_TONE_CLASS, spotsLabel } from '$lib/booking/spots';
@@ -54,7 +54,7 @@
 />
 
 <PageShell
-	eyebrow="{CATEGORY_LABEL[series.category]} · Forløb"
+	eyebrow="{series.category.name} · Forløb"
 	title={series.title}
 	intro="{series.serviceTypeName}{dateRange ? ` · ${dateRange}` : ''}"
 >
@@ -72,9 +72,7 @@
 							? 'bg-black/[0.03] text-black/45 ring-black/5'
 							: booked
 								? 'bg-mint-200/50 ring-mint-700/25'
-								: CATEGORY_STYLE[series.category].card} {fullSession === session.id
-							? 'ring-2 ring-rust-700'
-							: ''}"
+								: CATEGORY_STYLE.card} {fullSession === session.id ? 'ring-2 ring-rust-700' : ''}"
 					>
 						<div class="flex items-start gap-4">
 							<span

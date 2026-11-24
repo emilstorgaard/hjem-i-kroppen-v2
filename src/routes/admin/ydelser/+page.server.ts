@@ -1,9 +1,8 @@
 import { apiFail, ok, optional, readForm, requireId } from '$lib/server/actions';
 import { ApiError } from '$lib/server/booking-api';
-import { isCategory } from '$lib/booking/categories';
 import type {
+	AdminServiceCategoryResponse,
 	AdminServiceTypeResponse,
-	ServiceCategory,
 	ServiceTypeRequest
 } from '$lib/types/booking';
 import type { Actions, PageServerLoad } from './$types';
@@ -11,25 +10,37 @@ import type { Actions, PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const kategori = url.searchParams.get('kategori');
 	const aktiv = url.searchParams.get('aktiv');
+	const { api } = locals;
+	let categories: AdminServiceCategoryResponse[] = [];
 	let serviceTypes: AdminServiceTypeResponse[] = [];
 	let loadError: string | null = null;
 	try {
-		serviceTypes = await locals.api.all(locals.api.admin.serviceTypes.list, {
-			category: isCategory(kategori) ? kategori : undefined,
-			isActive: aktiv === 'ja' ? true : aktiv === 'nej' ? false : undefined
-		});
+		[categories, serviceTypes] = await Promise.all([
+			api.all(api.admin.serviceCategories.list, {}),
+			api.all(api.admin.serviceTypes.list, {
+				isActive: aktiv === 'ja' ? true : aktiv === 'nej' ? false : undefined
+			})
+		]);
 	} catch (err) {
 		if (!(err instanceof ApiError)) throw err;
 		loadError = err.detail;
 	}
+
+	// `?kategori=` holds the category slug. Filtering here keeps the category list in one request.
+	const category = categories.find((c) => c.slug === kategori);
+	// The API lists categories in the order they were created.
+	const order = new Map(categories.map((c, i) => [c.id, i]));
 	return {
-		serviceTypes: serviceTypes.toSorted(
-			(a, b) =>
-				a.category.localeCompare(b.category) ||
-				a.sortOrder - b.sortOrder ||
-				a.name.localeCompare(b.name)
-		),
-		filters: { kategori: isCategory(kategori) ? kategori : '', aktiv: aktiv ?? '' },
+		categories,
+		serviceTypes: serviceTypes
+			.filter((t) => !category || t.category.id === category.id)
+			.toSorted(
+				(a, b) =>
+					(order.get(a.category.id) ?? 0) - (order.get(b.category.id) ?? 0) ||
+					a.sortOrder - b.sortOrder ||
+					a.name.localeCompare(b.name, 'da')
+			),
+		filters: { kategori: category?.slug ?? '', aktiv: aktiv ?? '' },
 		loadError
 	};
 };
@@ -38,7 +49,7 @@ async function readServiceType(request: Request) {
 	const form = await readForm(
 		request,
 		'id',
-		'category',
+		'categoryId',
 		'name',
 		'description',
 		'defaultDurationMinutes',
@@ -48,7 +59,7 @@ async function readServiceType(request: Request) {
 	);
 	const { data: _data, ...values } = form;
 	const body: ServiceTypeRequest = {
-		category: form.category as ServiceCategory,
+		categoryId: form.categoryId,
 		name: form.name,
 		description: optional(form.description),
 		defaultDurationMinutes: Number(form.defaultDurationMinutes),
@@ -61,7 +72,7 @@ async function readServiceType(request: Request) {
 
 function toRequest(t: AdminServiceTypeResponse, sortOrder = t.sortOrder): ServiceTypeRequest {
 	return {
-		category: t.category,
+		categoryId: t.category.id,
 		name: t.name,
 		description: t.description,
 		defaultDurationMinutes: t.defaultDurationMinutes,
@@ -122,7 +133,7 @@ export const actions: Actions = {
 			const id = requireId(form.id);
 			const current = await api.admin.serviceTypes.get(id);
 			const siblings = (
-				await api.all(api.admin.serviceTypes.list, { category: current.category })
+				await api.all(api.admin.serviceTypes.list, { categoryId: current.category.id })
 			).toSorted((a, b) => a.sortOrder - b.sortOrder || a.name.localeCompare(b.name));
 			const index = siblings.findIndex((t) => t.id === id);
 			const target = index + (form.direction === 'up' ? -1 : 1);

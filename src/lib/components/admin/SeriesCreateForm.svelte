@@ -78,12 +78,7 @@
 	{#if result?.message && !result.success}<Alert message={result.message} />{/if}
 
 	<div class="grid gap-4 sm:grid-cols-2">
-		<Field
-			label="Ydelse (gruppe)"
-			for="series-type"
-			required
-			error={fieldError(result, 'serviceTypeId')}
-		>
+		<Field label="Ydelse" for="series-type" required error={fieldError(result, 'serviceTypeId')}>
 			<select
 				id="series-type"
 				name="serviceTypeId"

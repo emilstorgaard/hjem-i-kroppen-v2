@@ -1,11 +1,12 @@
-import type { Guid, IsoDateTime, PageQuery, ServiceCategory } from './common';
+import type { Guid, IsoDateTime, PageQuery } from './common';
+import type { ServiceCategorySummary } from './serviceCategories';
 
 /** A bookable session as shown to users. Contains no participant data. */
 export type SessionResponse = {
 	id: Guid;
 	serviceTypeId: Guid;
 	serviceTypeName: string;
-	category: ServiceCategory;
+	category: ServiceCategorySummary;
 	seriesId: Guid | null;
 	seriesTitle: string | null;
 	startsAt: IsoDateTime;
@@ -28,7 +29,7 @@ export type AdminSessionResponse = SessionResponse & {
 /** Public list: only sessions that have not started, are not cancelled and whose service type is active. */
 export type ListPublicSessionsQuery = PageQuery & {
 	serviceTypeId?: Guid;
-	category?: ServiceCategory;
+	categoryId?: Guid;
 	/** Starts at or after (inclusive). */
 	from?: IsoDateTime;
 	/** Starts before (exclusive). */

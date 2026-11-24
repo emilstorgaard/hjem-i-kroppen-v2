@@ -1,4 +1,5 @@
-import type { BookingStatus, Guid, IsoDateTime, PageQuery, ServiceCategory } from './common';
+import type { BookingStatus, Guid, IsoDateTime, PageQuery } from './common';
+import type { ServiceCategorySummary } from './serviceCategories';
 
 /** One of the signed-in user's bookings with the session details the user needs. */
 export type BookingResponse = {
@@ -6,7 +7,7 @@ export type BookingResponse = {
 	sessionId: Guid;
 	seriesId: Guid | null;
 	serviceTypeName: string;
-	category: ServiceCategory;
+	category: ServiceCategorySummary;
 	startsAt: IsoDateTime;
 	endsAt: IsoDateTime;
 	location: string | null;

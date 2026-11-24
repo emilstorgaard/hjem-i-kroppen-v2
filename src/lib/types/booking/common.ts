@@ -5,7 +5,6 @@ export type Guid = string;
 /** ISO 8601 timestamp in UTC, e.g. `2027-03-01T17:00:00Z`. */
 export type IsoDateTime = string;
 
-export type ServiceCategory = 'Dance' | 'Conversation' | 'Group';
 export type UserRole = 'User' | 'Admin';
 export type BookingStatus = 'Active' | 'Cancelled';
 
