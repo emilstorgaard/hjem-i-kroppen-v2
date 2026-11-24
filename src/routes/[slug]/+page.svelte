@@ -11,6 +11,7 @@
 <TherapyPage
 	therapy={data.page.properties}
 	bookHref={data.bookHref}
+	bookingOptions={data.bookingOptions}
 	contact={data.contact}
 	addresses={data.addresses}
 />

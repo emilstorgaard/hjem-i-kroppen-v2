@@ -1,7 +1,7 @@
 import type { UmbracoMedia } from './umbraco';
 import type { SeoProperties } from './seo';
 import type { Testimonial } from './testimonial';
-import type { BookingOption } from './bookingOption';
+import type { BookingOptionRef } from './bookingOption';
 import type { BlockList, ElementBlock } from './elementTypes';
 
 /**
@@ -22,9 +22,13 @@ export type TherapyPageContent = {
 		cardImage?: UmbracoMedia[] | null;
 		audience?: string | null;
 		participants?: string | null;
-		testimonials?: BlockList<ElementBlock<Partial<Testimonial>>> | null;
+		/** Element type Anmeldelse: `quote`, `author` ("name" is reserved in Umbraco) and `rating`. */
+		testimonials?: BlockList<
+			ElementBlock<{ quote?: string | null; author?: string | null; rating?: number | null }>
+		> | null;
+		/** Element type Bookingmulighed: optional `title` and `serviceType` (id from the service type picker). */
 		bookingOptions?: BlockList<
-			ElementBlock<{ title?: string | null; seriesId?: string | null }>
+			ElementBlock<{ title?: string | null; serviceType?: string | null }>
 		> | null;
 		/** Id of a booking category, chosen with the custom category picker. */
 		bookingCategory?: string | null;
@@ -39,7 +43,7 @@ export type TherapyPageProperties = SeoProperties & {
 	audience: string;
 	participants: string;
 	testimonials: Testimonial[];
-	bookingOptions: BookingOption[];
+	bookingOptions: BookingOptionRef[];
 	/** Booking category the "Book" buttons filter on. Null when none is chosen. */
 	bookingCategoryId: string | null;
 };

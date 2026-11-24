@@ -7,6 +7,10 @@ const NETWORK_ERROR = 'Vi kunne ikke få forbindelse. Tjek din internetforbindel
 type Options = {
 	/** Called with true when the request starts and false when it finishes. */
 	pending?: (value: boolean) => void;
+	/**
+	 * Called after the page has been updated with the result, e.g. to close a modal. Running it after `update`
+	 * matters: `update` re-runs the load functions, which would cancel a navigation (`goto`) started before it.
+	 */
 	onSuccess?: (result: FormResult) => void;
 	onFailure?: (result: FormResult) => void;
 	/** Reset the form after success (default true). */
@@ -26,11 +30,11 @@ export function feedback(options: Options = {}): SubmitFunction {
 			if (result.type === 'success') {
 				const data = (result.data ?? {}) as FormResult;
 				if (data.message) toast.success(data.message);
-				options.onSuccess?.(data);
 				await update({
 					reset: options.resetOnSuccess ?? true,
 					invalidateAll: options.invalidate ?? true
 				});
+				options.onSuccess?.(data);
 				return;
 			}
 			if (result.type === 'failure') {

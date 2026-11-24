@@ -46,9 +46,7 @@
 
 	const categoryServiceTypes = $derived(
 		data.filters.kategori
-			? data.serviceTypes
-					.filter((t) => t.category.slug === data.filters.kategori)
-					.sort((a, b) => a.sortOrder - b.sortOrder)
+			? data.serviceTypes.filter((t) => t.category.slug === data.filters.kategori)
 			: []
 	);
 

@@ -28,18 +28,10 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 
 	// `?kategori=` holds the category slug. Filtering here keeps the category list in one request.
 	const category = categories.find((c) => c.slug === kategori);
-	// The API lists categories in the order they were created.
-	const order = new Map(categories.map((c, i) => [c.id, i]));
+	// The API lists categories, and service types within each category, in the order they were created.
 	return {
 		categories,
-		serviceTypes: serviceTypes
-			.filter((t) => !category || t.category.id === category.id)
-			.toSorted(
-				(a, b) =>
-					(order.get(a.category.id) ?? 0) - (order.get(b.category.id) ?? 0) ||
-					a.sortOrder - b.sortOrder ||
-					a.name.localeCompare(b.name, 'da')
-			),
+		serviceTypes: serviceTypes.filter((t) => !category || t.category.id === category.id),
 		filters: { kategori: category?.slug ?? '', aktiv: aktiv ?? '' },
 		loadError
 	};
@@ -54,7 +46,6 @@ async function readServiceType(request: Request) {
 		'description',
 		'defaultDurationMinutes',
 		'defaultCapacity',
-		'sortOrder',
 		'isActive'
 	);
 	const { data: _data, ...values } = form;
@@ -64,22 +55,9 @@ async function readServiceType(request: Request) {
 		description: optional(form.description),
 		defaultDurationMinutes: Number(form.defaultDurationMinutes),
 		defaultCapacity: Number(form.defaultCapacity),
-		sortOrder: Number(form.sortOrder) || 0,
 		isActive: form.isActive === 'on'
 	};
 	return { id: form.id, body, values };
-}
-
-function toRequest(t: AdminServiceTypeResponse, sortOrder = t.sortOrder): ServiceTypeRequest {
-	return {
-		categoryId: t.category.id,
-		name: t.name,
-		description: t.description,
-		defaultDurationMinutes: t.defaultDurationMinutes,
-		defaultCapacity: t.defaultCapacity,
-		sortOrder,
-		isActive: t.isActive
-	};
 }
 
 export const actions: Actions = {
@@ -120,32 +98,6 @@ export const actions: Actions = {
 		try {
 			await locals.api.admin.serviceTypes.delete(requireId(form.id));
 			return ok('row', 'Ydelsen er slettet.');
-		} catch (err) {
-			return apiFail(err, 'row');
-		}
-	},
-
-	/** Moves a service type up or down within its category by renumbering the category's sort order. */
-	move: async ({ request, locals }) => {
-		const form = await readForm(request, 'id', 'direction');
-		const { api } = locals;
-		try {
-			const id = requireId(form.id);
-			const current = await api.admin.serviceTypes.get(id);
-			const siblings = (
-				await api.all(api.admin.serviceTypes.list, { categoryId: current.category.id })
-			).toSorted((a, b) => a.sortOrder - b.sortOrder || a.name.localeCompare(b.name));
-			const index = siblings.findIndex((t) => t.id === id);
-			const target = index + (form.direction === 'up' ? -1 : 1);
-			if (index === -1 || target < 0 || target >= siblings.length) return ok('row', '');
-			[siblings[index], siblings[target]] = [siblings[target], siblings[index]];
-			// Renumber 10, 20, 30 … and only save the ones that changed.
-			for (const [i, t] of siblings.entries()) {
-				const sortOrder = (i + 1) * 10;
-				if (t.sortOrder !== sortOrder)
-					await api.admin.serviceTypes.update(t.id, toRequest(t, sortOrder));
-			}
-			return ok('row', '');
 		} catch (err) {
 			return apiFail(err, 'row');
 		}

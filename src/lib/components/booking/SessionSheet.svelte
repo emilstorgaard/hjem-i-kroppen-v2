@@ -221,7 +221,11 @@
 					method="POST"
 					action={actionHref('book')}
 					class="flex flex-col gap-4"
-					use:enhance={feedback({ pending: (v) => (pending = v), resetOnSuccess: true })}
+					use:enhance={feedback({
+						pending: (v) => (pending = v),
+						resetOnSuccess: true,
+						onSuccess: () => onclose()
+					})}
 				>
 					<input type="hidden" name="sessionId" value={session.id} />
 					{#if session.seriesId}<input

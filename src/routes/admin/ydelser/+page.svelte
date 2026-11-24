@@ -96,7 +96,6 @@
 	<DataTable
 		caption="Ydelser"
 		columns={[
-			{ label: 'Rækkefølge' },
 			{ label: 'Navn' },
 			{ label: 'Kategori' },
 			{ label: 'Varighed' },
@@ -109,25 +108,6 @@
 		empty="Ingen ydelser endnu."
 	>
 		{#snippet row(t)}
-			{@const siblings = data.serviceTypes.filter((x) => x.category.id === t.category.id)}
-			{@const index = siblings.indexOf(t)}
-			<td class="px-4 py-3">
-				<div class="flex items-center gap-1">
-					<span class="w-8 text-xs text-black/50 tabular-nums">{t.sortOrder}</span>
-					{#each [{ dir: 'up', label: '↑', disabled: index === 0 }, { dir: 'down', label: '↓', disabled: index === siblings.length - 1 }] as m (m.dir)}
-						<form method="POST" action="?/move" use:enhance={feedback()}>
-							<input type="hidden" name="id" value={t.id} />
-							<input type="hidden" name="direction" value={m.dir} />
-							<button
-								type="submit"
-								disabled={m.disabled || !!data.filters.aktiv}
-								class="flex h-7 w-7 items-center justify-center rounded-full text-black/60 hover:bg-black/5 disabled:opacity-25"
-								aria-label="Flyt {t.name} {m.dir === 'up' ? 'op' : 'ned'}">{m.label}</button
-							>
-						</form>
-					{/each}
-				</div>
-			</td>
 			<td class="px-4 py-3">
 				<span class="font-semibold">{t.name}</span>
 				{#if t.description}<span class="block max-w-sm truncate text-xs text-black/55"
@@ -234,15 +214,6 @@
 				required
 				value={v?.defaultCapacity ?? String(editing?.defaultCapacity ?? 1)}
 				error={fieldError(saveResult, 'defaultCapacity')}
-			/>
-			<FormField
-				label="Sortering"
-				name="sortOrder"
-				id="st-sort"
-				type="number"
-				value={v?.sortOrder ?? String(editing?.sortOrder ?? 0)}
-				hint="Lavest vises først"
-				error={fieldError(saveResult, 'sortOrder')}
 			/>
 			<label class="flex items-center gap-3 self-end pb-2 text-sm font-medium">
 				<input

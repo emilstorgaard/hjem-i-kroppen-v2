@@ -1,5 +1,6 @@
 import { getContentItems } from './umbraco';
 import type { BookingApi } from './booking-api';
+import type { BookingOption } from '$lib/types/bookingOption';
 import type { DanceType } from '$lib/types/danceType';
 import type { TherapyPage, TherapyPageContent } from '$lib/types/therapyPage';
 
@@ -32,13 +33,16 @@ function toTherapyPage(content: TherapyPageContent): TherapyPage {
 				.filter((t) => !!t.quote?.trim())
 				.map((t) => ({
 					quote: t.quote!.trim(),
-					name: t.name?.trim() ?? '',
+					name: t.author?.trim() ?? '',
 					rating: Number(t.rating) || 5
 				})),
 			bookingOptions: (p.bookingOptions?.items ?? [])
 				.map((b) => b.content.properties)
-				.filter((o) => !!o.title?.trim())
-				.map((o) => ({ title: o.title!.trim(), seriesId: o.seriesId?.trim() || undefined })),
+				.map((o) => ({
+					title: o.title?.trim() ?? '',
+					serviceTypeId: o.serviceType?.trim() || null
+				}))
+				.filter((o) => o.title !== '' || o.serviceTypeId !== null),
 			bookingCategoryId: p.bookingCategory?.trim() || null
 		}
 	};
@@ -66,17 +70,38 @@ export function toDanceType(page: TherapyPage): DanceType {
 	};
 }
 
+function bookUrl(categorySlug: string, serviceTypeId?: string): string {
+	const params = new URLSearchParams({ kategori: categorySlug });
+	if (serviceTypeId) params.set('ydelse', serviceTypeId);
+	return `/book?${params}`;
+}
+
 /**
- * Where the page's "Book" buttons point: the booking calendar filtered on the chosen category, or the whole calendar
- * when no category is chosen, the category no longer exists or the booking API cannot be reached.
+ * The page's booking links. `bookHref` is the calendar filtered on the page's category, or the whole calendar when no
+ * category is chosen or it no longer exists. Each booking option links to its service type within that service type's
+ * own category; an option whose service type is gone or inactive falls back to `bookHref`, and uses the service type's
+ * name when it has no title. If the booking API cannot be reached, everything falls back to `/book`.
  */
-export async function bookingHref(api: BookingApi, categoryId: string | null): Promise<string> {
-	if (!categoryId) return '/book';
-	try {
-		const categories = await api.all(api.serviceCategories.list, {});
-		const category = categories.find((c) => c.id === categoryId);
-		return category ? `/book?kategori=${encodeURIComponent(category.slug)}` : '/book';
-	} catch {
-		return '/book';
-	}
+export async function bookingLinks(
+	api: BookingApi,
+	page: TherapyPage
+): Promise<{ bookHref: string; options: BookingOption[] }> {
+	const { bookingCategoryId, bookingOptions } = page.properties;
+	const needsServiceTypes = bookingOptions.some((o) => o.serviceTypeId !== null);
+	const [categories, serviceTypes] = await Promise.all([
+		bookingCategoryId ? api.all(api.serviceCategories.list, {}).catch(() => []) : [],
+		needsServiceTypes ? api.all(api.serviceTypes.list, {}).catch(() => []) : []
+	]);
+
+	const category = categories.find((c) => c.id === bookingCategoryId);
+	const bookHref = category ? bookUrl(category.slug) : '/book';
+	const options = bookingOptions.flatMap((option) => {
+		const serviceType = serviceTypes.find((t) => t.id === option.serviceTypeId);
+		const title = option.title || serviceType?.name;
+		if (!title) return [];
+		return [
+			{ title, href: serviceType ? bookUrl(serviceType.category.slug, serviceType.id) : bookHref }
+		];
+	});
+	return { bookHref, options };
 }

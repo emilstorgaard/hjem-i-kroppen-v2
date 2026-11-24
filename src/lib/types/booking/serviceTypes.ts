@@ -9,7 +9,6 @@ export type ServiceTypeResponse = {
 	description: string | null;
 	defaultDurationMinutes: number;
 	defaultCapacity: number;
-	sortOrder: number;
 };
 
 export type AdminServiceTypeResponse = ServiceTypeResponse & {
@@ -28,6 +27,5 @@ export type ServiceTypeRequest = {
 	description: string | null;
 	defaultDurationMinutes: number;
 	defaultCapacity: number;
-	sortOrder: number;
 	isActive: boolean;
 };
