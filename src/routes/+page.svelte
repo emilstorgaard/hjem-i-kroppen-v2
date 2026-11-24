@@ -19,6 +19,8 @@
 <Hero hero={data.page.properties} />
 <DMT />
 <Testimonials testimonials={data.testimonials} />
-<DanceTypes danceTypes={data.danceTypes} />
+{#if data.danceTypes.length > 0}
+	<DanceTypes danceTypes={data.danceTypes} />
+{/if}
 <About />
 <Contact contact={data.page.properties} addresses={data.addresses} />

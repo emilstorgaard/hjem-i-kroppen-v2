@@ -1,62 +1,9 @@
 <script lang="ts">
 	import type { DanceType } from '$lib/types/danceType';
 	import { reveal } from '$lib/actions/reveal';
+	import { mediaSrc, mediaSrcset } from '$lib/utils/media';
 	let { danceTypes }: { danceTypes: DanceType[] } = $props();
 </script>
-
-{#snippet icon(name: string)}
-	{#if name === 'circle'}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="1.5"
-			stroke="currentColor"
-			class="h-7 w-7"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-9L21 12m0 0-4.5 4.5M21 12H7.5"
-			/>
-		</svg>
-	{:else if name === 'heart'}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="1.5"
-			stroke="currentColor"
-			class="h-7 w-7"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-			/>
-		</svg>
-	{:else}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="1.5"
-			stroke="currentColor"
-			class="h-7 w-7"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="m9.75 9.75 4.06-1.353a.75.75 0 0 1 .943.943L13.4 13.4l-4.06 1.353a.75.75 0 0 1-.943-.943Z"
-			/>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-			/>
-		</svg>
-	{/if}
-{/snippet}
 
 <section
 	id="terapi"
@@ -78,17 +25,19 @@
 					class="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20 md:flex-row md:items-stretch"
 				>
 					<div
-						class="flex aspect-4/3 w-full items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:hidden"
+						class="aspect-4/3 w-full shrink-0 overflow-hidden bg-linear-to-br from-black to-mint-700 md:aspect-auto md:w-80 lg:w-[26rem]"
 						aria-hidden="true"
 					>
-						{@render icon(type.icon)}
-					</div>
-
-					<div
-						class="hidden shrink-0 items-center justify-center bg-linear-to-br from-black to-mint-700 text-white md:flex md:w-80 lg:w-[26rem]"
-						aria-hidden="true"
-					>
-						{@render icon(type.icon)}
+						{#if type.image}
+							<img
+								src={mediaSrc(type.image.url, 'card')}
+								srcset={mediaSrcset(type.image.url, 'card')}
+								sizes="(min-width: 1024px) 416px, (min-width: 768px) 320px, 100vw"
+								alt=""
+								loading="lazy"
+								class="h-full w-full object-cover"
+							/>
+						{/if}
 					</div>
 
 					<div class="flex flex-1 flex-col p-8 md:justify-center md:p-10">

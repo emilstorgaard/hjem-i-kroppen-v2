@@ -51,7 +51,13 @@ export const load: PageServerLoad = async ({ locals, url, untrack }) => {
 
 	try {
 		// `?kategori=` holds the category slug (e.g. danseterapi), so links from the therapy pages keep working.
-		base.categories = await api.all(api.serviceCategories.list, {});
+		const [categories, serviceTypes] = await Promise.all([
+			api.all(api.serviceCategories.list, {}),
+			api.all(api.serviceTypes.list, {})
+		]);
+		// Only categories with something bookable become filters.
+		base.categories = categories.filter((c) => serviceTypes.some((t) => t.category.id === c.id));
+		base.serviceTypes = serviceTypes;
 		const category = base.categories.find((c) => c.slug === kategori);
 		base.filters.kategori = category?.slug ?? null;
 		const filters = {
@@ -60,15 +66,13 @@ export const load: PageServerLoad = async ({ locals, url, untrack }) => {
 			onlyAvailable: onlyAvailable || undefined
 		};
 
-		const [serviceTypes, sessions, myBookings] = await Promise.all([
-			api.all(api.serviceTypes.list, {}),
+		const [sessions, myBookings] = await Promise.all([
 			api.all(api.sessions.list, { from, to, ...filters }),
 			user
 				? api.all(api.me.bookings.list, { upcoming: true, status: 'Active' })
 				: Promise.resolve([])
 		]);
 
-		base.serviceTypes = serviceTypes;
 		base.sessions = sessions;
 		for (const b of myBookings) base.booked[b.sessionId] = b.id;
 		base.bookedSeries = [

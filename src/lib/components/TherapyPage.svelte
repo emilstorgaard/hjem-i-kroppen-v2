@@ -6,17 +6,17 @@
 	import { reveal } from '$lib/actions/reveal';
 	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
-	import type { TherapySlug } from '$lib/therapies';
 	import type { TherapyPageProperties } from '$lib/types/therapyPage';
 
 	type Props = {
-		slug: TherapySlug;
+		/** Where the "Book" buttons point, e.g. `/book?kategori=danseterapi`. */
+		bookHref: string;
 		therapy: TherapyPageProperties;
 		contact: ContactProperties | null;
 		addresses: Address[];
 	};
 
-	let { slug, therapy, contact, addresses }: Props = $props();
+	let { therapy, bookHref, contact, addresses }: Props = $props();
 </script>
 
 <SplitSection image={therapy.image?.[0]} imageAlt={therapy.heading}>
@@ -42,8 +42,8 @@
 	<Testimonials testimonials={therapy.testimonials} />
 {/if}
 
-{#if therapy.bookingOptions?.length}
-	<BookingOptions options={therapy.bookingOptions} therapy={slug} />
+{#if therapy.bookingOptions.length}
+	<BookingOptions options={therapy.bookingOptions} {bookHref} />
 {/if}
 
-<Contact {contact} {addresses} bookHref="/book?kategori={slug}" mailSubject="Henvendelse om {therapy.heading}" />
+<Contact {contact} {addresses} {bookHref} mailSubject="Henvendelse om {therapy.heading}" />

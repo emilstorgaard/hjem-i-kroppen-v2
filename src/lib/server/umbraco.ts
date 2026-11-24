@@ -20,3 +20,9 @@ async function getJson<T>(url: string, fetchFn: typeof fetch = fetch): Promise<T
 export function getContentByPath<T>(path: string, fetchFn?: typeof fetch): Promise<T> {
 	return getJson<T>(`${BASE_URL}/content/item/${path}`, fetchFn);
 }
+
+/** Queries content items, e.g. `filter=contentType:therapyPage&take=100`. Pass SvelteKit's `fetch` from `load`. */
+export async function getContentItems<T>(query: string, fetchFn?: typeof fetch): Promise<T[]> {
+	return (await getJson<{ total: number; items: T[] }>(`${BASE_URL}/content?${query}`, fetchFn))
+		.items;
+}

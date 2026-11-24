@@ -9,8 +9,8 @@
 <SeoHead seo={data.page.properties} />
 
 <TherapyPage
-	slug={data.slug}
 	therapy={data.page.properties}
+	bookHref={data.bookHref}
 	contact={data.contact}
 	addresses={data.addresses}
 />

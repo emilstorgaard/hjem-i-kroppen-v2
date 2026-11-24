@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
-	import type { TherapySlug } from '$lib/therapies';
 	import type { BookingOption } from '$lib/types/bookingOption';
 
-	let { options, therapy }: { options: BookingOption[]; therapy: TherapySlug } = $props();
+	let { options, bookHref }: { options: BookingOption[]; bookHref: string } = $props();
 
 	const bookingHref = (option: BookingOption) =>
-		option.seriesId ? `/book/serie/${option.seriesId}` : `/book?kategori=${therapy}`;
+		option.seriesId ? `/book/serie/${option.seriesId}` : bookHref;
 </script>
 
 <section aria-labelledby="booking-options-heading" class="bg-white px-6 py-16 lg:px-8 lg:py-24">
