@@ -18,7 +18,7 @@
 		</div>
 
 		<ul class="mt-10 flex flex-col gap-4 lg:mt-14 lg:gap-6">
-			{#each options as option, i (option.title + option.href)}
+			{#each options as option, i (i)}
 				<li
 					use:reveal={{ delay: i * 120 }}
 					class="flex flex-col gap-5 rounded-3xl bg-mint-600/40 p-6 text-black ring-1 ring-black/10 transition-all duration-300 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-8"

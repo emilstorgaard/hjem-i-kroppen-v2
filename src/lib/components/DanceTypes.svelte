@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="mt-16 flex flex-col gap-6 md:gap-8">
-			{#each danceTypes as type, i (type.title)}
+			{#each danceTypes as type, i (type.slug)}
 				<div
 					use:reveal={{ delay: i * 120 }}
 					class="flex flex-col overflow-hidden bg-white shadow-sm ring-1 ring-black/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:ring-black/20 md:flex-row md:items-stretch"

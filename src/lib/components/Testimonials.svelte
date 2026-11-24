@@ -133,7 +133,7 @@
 						class="flex py-4 transition-transform duration-500 ease-out"
 						style="transform: translateX(-{activeIndex * (100 / cardsPerView)}%)"
 					>
-						{#each testimonials as testimonial, i (testimonial.name)}
+						{#each testimonials as testimonial, i (i)}
 							<div
 								class="shrink-0 px-3"
 								style="flex: 0 0 {100 / cardsPerView}%"
@@ -215,7 +215,7 @@
 					isCarousel ? 'hidden lg:grid lg:grid-cols-3' : 'grid md:grid-cols-3'
 				]}
 			>
-				{#each testimonials as testimonial, i (testimonial.name)}
+				{#each testimonials as testimonial, i (i)}
 					<div use:reveal={{ delay: i * 120 }}>
 						<TestimonialCard {testimonial} />
 					</div>
