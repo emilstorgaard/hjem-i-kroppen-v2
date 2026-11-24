@@ -25,7 +25,6 @@ function toTherapyPage(content: TherapyPageContent): TherapyPage {
 			heading,
 			info,
 			image: p.image ?? undefined,
-			cardImage: p.cardImage ?? undefined,
 			audience: p.audience?.trim() ?? '',
 			participants: p.participants?.trim() ?? '',
 			testimonials: (p.testimonials?.items ?? [])
@@ -59,12 +58,12 @@ export async function getTherapyPages(fetchFn?: typeof fetch): Promise<TherapyPa
 
 /** The home page card for a therapy page. */
 export function toDanceType(page: TherapyPage): DanceType {
-	const { heading, info, image, cardImage, audience, participants } = page.properties;
+	const { heading, info, image, audience, participants } = page.properties;
 	return {
 		slug: page.slug,
 		title: heading,
 		description: info,
-		image: cardImage?.[0] ?? image?.[0],
+		image: image?.[0],
 		audience,
 		participants
 	};

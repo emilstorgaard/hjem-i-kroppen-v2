@@ -18,8 +18,6 @@ export type TherapyPageContent = {
 		heading?: string | null;
 		info?: string | null;
 		image?: UmbracoMedia[] | null;
-		/** Optional image for the home page card. Falls back to `image`. */
-		cardImage?: UmbracoMedia[] | null;
 		audience?: string | null;
 		participants?: string | null;
 		/** Element type Anmeldelse: `quote`, `author` ("name" is reserved in Umbraco) and `rating`. */
@@ -39,7 +37,6 @@ export type TherapyPageProperties = SeoProperties & {
 	heading: string;
 	info: string;
 	image?: UmbracoMedia[];
-	cardImage?: UmbracoMedia[];
 	audience: string;
 	participants: string;
 	testimonials: Testimonial[];

@@ -5,7 +5,7 @@ export type DanceType = {
 	slug: string;
 	title: string;
 	description: string;
-	/** Optional card image: the page's "Kortbillede", else its main image. */
+	/** The therapy page's image, if it has one. */
 	image?: UmbracoMedia;
 	audience: string;
 	participants: string;
