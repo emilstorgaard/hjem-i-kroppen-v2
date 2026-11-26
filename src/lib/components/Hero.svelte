@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_UMBRACO_URL } from '$env/static/public';
 	import { getMediaUrl } from '$lib/api/umbraco';
 	import { getLabels } from '$lib/labels';
 	import type { HeroProperties } from '$lib/types/hero';
@@ -7,7 +8,24 @@
 
 	const labels = $derived(getLabels());
 	const videoUrl = $derived(hero.heroVideo ? getMediaUrl(hero.heroVideo.url) : undefined);
+	const umbracoOrigin = new URL(PUBLIC_UMBRACO_URL).origin;
+
+	// The video fades in once it is actually playing, so a slow start from the CMS never shows as a frozen or stuttering frame.
+	let playing = $state(false);
+	let video = $state<HTMLVideoElement>();
+
+	// The video may already be playing before hydration, in which case the `playing` event was missed.
+	$effect(() => {
+		if (video && !video.paused && video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA)
+			playing = true;
+	});
 </script>
+
+<svelte:head>
+	{#if videoUrl}
+		<link rel="preconnect" href={umbracoOrigin} />
+	{/if}
+</svelte:head>
 
 <section
 	id="top"
@@ -15,14 +33,20 @@
 >
 	{#if videoUrl}
 		<video
-			class="hero-video absolute inset-0 h-full w-full object-cover"
+			bind:this={video}
+			class="hero-video absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 {playing
+				? 'opacity-100'
+				: 'opacity-0'}"
 			src={videoUrl}
 			autoplay
 			muted
 			loop
 			playsinline
 			preload="auto"
+			disablepictureinpicture
+			disableremoteplayback
 			aria-hidden="true"
+			onplaying={() => (playing = true)}
 		></video>
 	{/if}
 	<div
