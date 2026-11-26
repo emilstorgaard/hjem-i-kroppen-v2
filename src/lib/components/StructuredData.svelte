@@ -1,15 +1,18 @@
 <script lang="ts">
 	import { SITE_URL } from '$lib/site';
 	import { mediaSrc } from '$lib/utils/media';
+	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
 	import type { SettingsProperties } from '$lib/types/settings';
 
 	type Props = {
 		settings: SettingsProperties;
 		contact: ContactProperties;
+		/** The business address. Left out when none is given. */
+		address?: Address;
 	};
 
-	let { settings, contact }: Props = $props();
+	let { settings, contact, address }: Props = $props();
 
 	const logo = $derived(settings.logo?.[0]);
 	const logoUrl = $derived(logo ? mediaSrc(logo.url, 'og', 'jpg') : undefined);
@@ -22,13 +25,13 @@
 		image: logoUrl,
 		telephone: contact.phone,
 		email: contact.email,
-		address: {
+		address: address && {
 			'@type': 'PostalAddress',
-			streetAddress: contact.streetAddress,
-			postalCode: contact.postalCode,
-			addressLocality: contact.city
-		},
-		sameAs: [contact.instagramUrl, contact.facebookUrl].filter(Boolean)
+			streetAddress: address.streetAddress,
+			postalCode: address.postalCode,
+			addressLocality: address.city,
+			addressCountry: 'DK'
+		}
 	});
 
 	const structuredDataJson = $derived(JSON.stringify(structuredData).replace(/</g, '\u003c'));

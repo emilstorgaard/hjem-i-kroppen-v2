@@ -15,7 +15,12 @@ declare global {
 			api: BookingApi;
 			correlationId: string;
 		}
-		// interface PageData {}
+		interface PageData {
+			/** Texts from "Indstillinger", set by the root layout. Read them with `getLabels()`. */
+			labels?: Partial<import('$lib/types/labels').SiteLabels>;
+			/** Texts from the home page, set by the pages that load it. Read them with `getLabels()`. */
+			homeLabels?: Partial<import('$lib/types/labels').SiteLabels>;
+		}
 		// interface PageState {}
 		// interface Platform {}
 	}

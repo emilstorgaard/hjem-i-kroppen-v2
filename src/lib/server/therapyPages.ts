@@ -1,4 +1,5 @@
 import { getContentItems } from './umbraco';
+import { toTestimonials } from './content';
 import type { BookingApi } from './booking-api';
 import type { BookingOption } from '$lib/types/bookingOption';
 import type { DanceType } from '$lib/types/danceType';
@@ -27,14 +28,11 @@ function toTherapyPage(content: TherapyPageContent): TherapyPage {
 			image: p.image ?? undefined,
 			audience: p.audience?.trim() ?? '',
 			participants: p.participants?.trim() ?? '',
-			testimonials: (p.testimonials?.items ?? [])
-				.map((b) => b.content.properties)
-				.filter((t) => !!t.quote?.trim())
-				.map((t) => ({
-					quote: t.quote!.trim(),
-					name: t.author?.trim() ?? '',
-					rating: Number(t.rating) || 5
-				})),
+			testimonials: toTestimonials(p.testimonials),
+			testimonialsLabel: p.testimonialsLabel?.trim() ?? '',
+			testimonialsHeading: p.testimonialsHeading?.trim() ?? '',
+			bookingOptionsLabel: p.bookingOptionsLabel?.trim() || 'Ydelser',
+			bookingOptionsHeading: p.bookingOptionsHeading?.trim() || 'Vælg ydelse og book',
 			bookingOptions: (p.bookingOptions?.items ?? [])
 				.map((b) => b.content.properties)
 				.map((o) => ({

@@ -1,23 +1,30 @@
 <script lang="ts">
+	import { getMediaUrl } from '$lib/api/umbraco';
+	import { getLabels } from '$lib/labels';
 	import type { HeroProperties } from '$lib/types/hero';
 
-	let { hero: _hero }: { hero: HeroProperties } = $props();
+	let { hero }: { hero: HeroProperties } = $props();
+
+	const labels = $derived(getLabels());
+	const videoUrl = $derived(hero.heroVideo ? getMediaUrl(hero.heroVideo.url) : undefined);
 </script>
 
 <section
 	id="top"
 	class="relative flex min-h-svh flex-col overflow-hidden bg-black max-lg:min-h-[calc(100svh-var(--header-h,4.5rem)-1px)] lg:h-svh lg:min-h-[480px] lg:pt-[var(--header-h,4.5rem)]"
 >
-	<video
-		class="hero-video absolute inset-0 h-full w-full object-cover"
-		autoplay
-		muted
-		loop
-		playsinline
-		aria-hidden="true"
-	>
-		<source src="/hero.mp4" type="video/mp4" />
-	</video>
+	{#if videoUrl}
+		<video
+			class="hero-video absolute inset-0 h-full w-full object-cover"
+			src={videoUrl}
+			autoplay
+			muted
+			loop
+			playsinline
+			preload="auto"
+			aria-hidden="true"
+		></video>
+	{/if}
 	<div
 		class="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80"
 		aria-hidden="true"
@@ -30,30 +37,17 @@
 			class="hero-in mt-3 font-serif text-3xl leading-tight font-semibold text-mint-400 sm:mt-5 sm:text-4xl md:text-5xl lg:mt-0 lg:text-[length:clamp(2.25rem,10svh,6rem)]"
 			style="animation-delay: 340ms"
 		>
-			DANS DIG<br /> FRI
+			{#each hero.heroTitle as line, i (i)}{#if i > 0}<br />{/if}{line}{/each}
 		</h1>
 
-		<p
-			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:mt-[clamp(0.5rem,2.4svh,1.5rem)] lg:max-w-3xl lg:text-[length:clamp(1rem,2.8svh,1.5rem)]"
-			style="animation-delay: 460ms"
-		>
-			Giv slip. Giv dig hen. Dans frit.
-		</p>
-
-		<p
-			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:mt-[clamp(0.5rem,2.4svh,1.5rem)] lg:max-w-3xl lg:text-[length:clamp(1rem,2.8svh,1.5rem)]"
-			style="animation-delay: 460ms"
-		>
-			Oplev stærkere forbindelse til din krop, tydeligere kontakt mellem krop, følelser og tanker 〰
-			og mere frihed, bevidsthed og nærvær i dit liv.
-		</p>
-
-		<p
-			class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:mt-[clamp(0.5rem,2.4svh,1.5rem)] lg:max-w-3xl lg:text-[length:clamp(1rem,2.8svh,1.5rem)]"
-			style="animation-delay: 460ms"
-		>
-			Jeg guider Fri Dans og danseterapi. Du er velkommen.
-		</p>
+		{#each hero.heroText as line, i (i)}
+			<p
+				class="hero-in mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg lg:mt-[clamp(0.5rem,2.4svh,1.5rem)] lg:max-w-3xl lg:text-[length:clamp(1rem,2.8svh,1.5rem)]"
+				style="animation-delay: 460ms"
+			>
+				{line}
+			</p>
+		{/each}
 
 		<div
 			class="hero-in mt-6 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:gap-4 md:mt-12 lg:mt-[clamp(1rem,4svh,3rem)]"
@@ -63,7 +57,7 @@
 				href="#terapi"
 				class="rounded-full bg-mint-700 px-8 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-400 active:scale-95 sm:py-3.5 lg:px-[clamp(1.75rem,4svh,2.5rem)] lg:py-[clamp(0.6rem,1.8svh,1rem)] lg:text-[length:clamp(0.95rem,2.2svh,1.125rem)]"
 			>
-				FIND DIN DANS
+				{labels.heroButtonText}
 			</a>
 		</div>
 	</div>

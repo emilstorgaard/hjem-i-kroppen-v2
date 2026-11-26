@@ -2,7 +2,16 @@
 	import type { Testimonial } from '$lib/types/testimonial';
 	import TestimonialCard from '$lib/components/TestimonialCard.svelte';
 	import { reveal } from '$lib/actions/reveal';
-	let { testimonials }: { testimonials: Testimonial[] } = $props();
+	import { getLabels } from '$lib/labels';
+	type Props = {
+		testimonials: Testimonial[];
+		/** Overrides the home page's label, e.g. a therapy page's own. */
+		label?: string;
+		/** Overrides the home page's heading, e.g. a therapy page's own. */
+		heading?: string;
+	};
+
+	let { testimonials, label, heading }: Props = $props();
 
 	const N = $derived(testimonials.length);
 	const isCarousel = $derived(N > 1);
@@ -89,6 +98,8 @@
 		resetAutoplayTimer();
 		return () => clearTimeout(autoplayTimeout);
 	});
+
+	const labels = $derived(getLabels());
 </script>
 
 <section
@@ -99,12 +110,12 @@
 >
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Anmeldelser</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">{label ?? labels.testimonialsLabel}</p>
 			<h2
 				class="mt-4 font-serif text-4xl font-semibold text-black sm:text-5xl"
 				id="anmeldelser-heading"
 			>
-				Hvad kunderne siger
+				{heading ?? labels.testimonialsHeading}
 			</h2>
 		</div>
 
@@ -114,7 +125,7 @@
 				class={['mt-16', gridOnDesktop && 'lg:hidden']}
 				role="region"
 				aria-roledescription="karrusel"
-				aria-label="Anmeldelser"
+				aria-label={label ?? labels.testimonialsLabel}
 				onmouseenter={() => (isPaused = true)}
 				onmouseleave={() => (isPaused = false)}
 				onfocusin={() => (isPaused = true)}

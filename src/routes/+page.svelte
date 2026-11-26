@@ -10,17 +10,26 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	const home = $derived(data.page.properties);
+	const showDmt = $derived(home.dmt.heading !== '' || home.dmt.paragraphs.length > 0);
 </script>
 
-<StructuredData settings={data.settings.properties} contact={data.page.properties} />
+<StructuredData settings={data.settings.properties} contact={home} address={home.addresses[0]} />
 
-<SeoHead seo={data.page.properties} />
+<SeoHead seo={home} />
 
-<Hero hero={data.page.properties} />
-<DMT />
-<Testimonials testimonials={data.testimonials} />
+<Hero hero={home} />
+{#if showDmt}
+	<DMT dmt={home.dmt} />
+{/if}
+{#if home.testimonials.length > 0}
+	<Testimonials testimonials={home.testimonials} />
+{/if}
 {#if data.danceTypes.length > 0}
 	<DanceTypes danceTypes={data.danceTypes} />
 {/if}
-<About />
-<Contact contact={data.page.properties} addresses={data.addresses} />
+{#if data.about}
+	<About about={data.about} />
+{/if}
+<Contact contact={home} addresses={home.addresses} />

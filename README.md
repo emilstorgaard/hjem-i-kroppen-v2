@@ -27,7 +27,6 @@ src/
     components/         # Page sections (Header, Hero, About, ...), shared layouts (SplitSection) and SeoHead/StructuredData
       booking/          # Booking UI: Button, Modal (sheet), Toaster, FormField/Field, Alert, Badge, Pagination, ConfirmDialog, SessionCard, SessionSheet, MiniMonth, Login/RegisterForm, PageShell
       admin/            # Admin UI: DataTable, AdminHeader, StatCard, FillBar, UserPicker, Session/SeriesCreateForm
-    content/            # Static placeholder content not yet moved to Umbraco (one file per topic)
     navigation.ts       # Header nav links
     server/
       umbraco.ts        # Server-only Umbraco Content Delivery API client (typed, timeout, 404 handling)
@@ -38,21 +37,19 @@ src/
       booking-actions.ts# Book / cancel actions shared by /book and /book/serie/[id]
       admin.ts          # Admin helpers (user search for pickers, paging)
     site.ts             # Shared site-wide constants (SITE_URL)
-    therapies.ts        # Slugs of the therapy sub pages (route matcher, home cards, sitemap)
     styles/app.css      # Tailwind entry point + theme tokens + form/chip component classes
     types/              # Types mirroring Umbraco content types/compositions + content item types
       booking/          # Types mirroring the booking API's C# request/response records, one file per area
     utils/media.ts      # Umbraco media URL/srcset helpers
     utils/date.ts       # Europe/Copenhagen date helpers (ISO weeks, DST-safe local ↔ UTC) + date.test.ts
-  params/therapy.ts     # Route param matcher: only the known therapy slugs reach [therapy]
   routes/
     +layout.svelte      # Global shell (Header/Footer/Toaster)
     +layout.server.ts   # Loads Umbraco "indstillinger" and "fejlside", passes the signed-in user
     +page.svelte        # Home page, composed of section components
-    +page.server.ts     # Loads the Umbraco "forside" content + placeholder content
-    priser/             # Prices sub page (placeholder prices from lib/content)
-    om-mig/             # About sub page (static copy for now)
-    [therapy=therapy]/  # The three therapy pages (/danseterapi, /gruppeterapi, /samtaleterapi) from one route
+    +page.server.ts     # Loads the Umbraco "forside", the therapy page cards and the about page teaser
+    priser/             # Prices sub page (Umbraco document type pricesPage)
+    om-mig/             # About sub page (Umbraco document type aboutPage)
+    [slug]/             # Therapy pages (Umbraco document type therapyPage); any other slug is a 404
     book/               # Booking calendar (?uge=2027-W10&kategori=…&ydelse=…&ledige=1&session=…&dag=…)
       serie/[id]/       # Series detail: all sessions, "Book hele forløbet"
     login/ opret-bruger/ logout/   # Auth (full pages, also used inline in the booking sheet)
@@ -156,7 +153,7 @@ CORS is not involved: the browser only talks to SvelteKit, and SvelteKit calls t
 
 State lives in the URL: `?uge=2027-W10` (ISO week), `kategori` (therapy slug), `ydelse` (service type id), `ledige=1`, `session` (the open sheet) and `dag` (the selected day on mobile). Back/forward and sharing therefore work, and so does the sheet without JS. After login or registration, the visitor returns to the same URL with the sheet open. `session` and `dag` are read with `untrack`, so opening a session or switching day does not reload the week. The next week is prefetched with `preloadData`.
 
-The therapy pages link to `/book?kategori=<slug>`. A booking option can link to a specific series by setting `seriesId` (`src/lib/types/bookingOption.ts`), which leads to `/book/serie/{id}`.
+The therapy pages link to `/book?kategori=<slug>`. A booking option on a therapy page can link to a specific service type, which leads to `/book?kategori=<slug>&ydelse=<id>` (`bookingLinks` in `src/lib/server/therapyPages.ts`).
 
 ### Rate limiting and the proxy
 
@@ -169,13 +166,25 @@ The API rate-limits **per client IP** (300/min globally, 10/min for login and re
 
 ## Content model (Umbraco)
 
-Page content is fetched server-side via `getContentByPath<T>` in [`src/lib/server/umbraco.ts`](src/lib/server/umbraco.ts) (server-only; components never call Umbraco directly), which calls `GET {PUBLIC_UMBRACO_URL}/umbraco/delivery/api/v2/content/item/{path}`. Each Umbraco content type has a matching TypeScript type under `src/lib/types/`:
+Page content is fetched server-side via `getContentByPath<T>` and `getContentItems<T>` in [`src/lib/server/umbraco.ts`](src/lib/server/umbraco.ts) (server-only; components never call Umbraco directly), which calls `GET {PUBLIC_UMBRACO_URL}/umbraco/delivery/api/v2/content/item/{path}`. Each Umbraco content type has a matching TypeScript type under `src/lib/types/`:
 
 | Umbraco path    | Content type | Type                                       | Used in                                          |
 | --------------- | ------------ | ------------------------------------------ | ------------------------------------------------ |
-| `forside`       | Home page    | `HomePage` (`src/lib/types/homePage.ts`)   | `src/routes/+page.server.ts` → `+page.svelte`    |
+| `forside`       | Home page    | `HomePage` (`src/lib/types/homePage.ts`)   | `src/lib/server/homePage.ts` → `/` and `/[slug]` |
 | `indstillinger` | Settings     | `Settings` (`src/lib/types/settings.ts`)   | `src/routes/+layout.server.ts` → Header/Footer   |
 | `fejlside`      | Error 404    | `ErrorPage` (`src/lib/types/errorPage.ts`) | `src/routes/+layout.server.ts` → `+error.svelte` |
+
+Pages that can sit anywhere in the tree are found by document type with `getContentItems` (`GET …/content?filter=contentType:<alias>`), so their placement and URL name in Umbraco do not matter. Each has a loader in `src/lib/server/` that maps the raw Delivery API item (all properties optional) to a render-ready type with fallbacks:
+
+| Document type | Loader                           | Type                                           | Used in                 |
+| ------------- | -------------------------------- | ---------------------------------------------- | ----------------------- |
+| `therapyPage` | `src/lib/server/therapyPages.ts` | `TherapyPage` (`src/lib/types/therapyPage.ts`) | `/`, `/[slug]`, sitemap |
+| `aboutPage`   | `src/lib/server/aboutPage.ts`    | `AboutPage` (`src/lib/types/aboutPage.ts`)     | `/om-mig`, sitemap      |
+| `pricesPage`  | `src/lib/server/pricesPage.ts`   | `PricesPage` (`src/lib/types/pricesPage.ts`)   | `/priser`, sitemap      |
+
+The home page holds the hero (title, text and background video from the media library), the "Hvad er DMT?" section, testimonials, and the contact details and addresses that every therapy page also shows (the first address is the business address in the JSON-LD). The contact section (heading, intro text, mail button text, phone, e-mail and addresses) is edited on the home page and shown on the home page and every therapy page, with default texts when empty. The home page's "Om mig" section is a teaser for the `aboutPage` (label, name, subtitle, first paragraph and image), so that text is only edited in one place. It is hidden when the about page is not published. Shared mapping helpers (paragraphs, lines, testimonials) live in `src/lib/server/content.ts`.
+
+Button and section texts are Textstrings in Umbraco with a default in code for every empty field (`src/lib/labels.ts`). The header buttons are in the group "Tekster" on `indstillinger` (read by the root layout into `labels`). The texts that belong to home page sections (the hero button, the testimonials label and heading, the contact mail button, "Læs mere", "Læs mere om mig", "Book", and the labels "Hvad er DMT?", "Terapi", "Anmeldelser" and "Kontakt") are on `forside` next to those sections; the home page and the therapy pages return them as `homeLabels`. Components read the merged texts with `getLabels()`. Therapy pages have their own label and heading for the testimonials (`testimonialsLabel`, `testimonialsHeading`) and the booking options (`bookingOptionsLabel`, `bookingOptionsHeading`) on `therapyPage`; empty ones fall back to the defaults, not to the home page's. The header menu (`src/lib/navigation.ts`) and the booking pages' texts stay in code.
 
 All page content types compose `SeoProperties` (`src/lib/types/seo.ts`: `metaTitle`, `metaDescription`, optional `ogImage`), rendered by the shared [`SeoHead.svelte`](src/lib/components/SeoHead.svelte) component (title, description, canonical, Open Graph, Twitter card tags).
 

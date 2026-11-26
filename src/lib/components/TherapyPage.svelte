@@ -4,6 +4,7 @@
 	import BookingOptions from '$lib/components/BookingOptions.svelte';
 	import Contact from '$lib/components/Contact.svelte';
 	import { reveal } from '$lib/actions/reveal';
+	import { DEFAULT_LABELS, getLabels } from '$lib/labels';
 	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
 	import type { BookingOption } from '$lib/types/bookingOption';
@@ -20,6 +21,8 @@
 	};
 
 	let { therapy, bookHref, bookingOptions, contact, addresses }: Props = $props();
+
+	const labels = $derived(getLabels());
 </script>
 
 <SplitSection image={therapy.image?.[0]} imageAlt={therapy.heading}>
@@ -27,7 +30,7 @@
 		use:reveal={{ delay: 150 }}
 		class="flex flex-col justify-center bg-mint-600 px-6 py-10 text-center md:p-10 md:text-left md:shadow-sm md:ring-1 md:ring-black/10 lg:p-14"
 	>
-		<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Terapi</p>
+		<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">{labels.therapyLabel}</p>
 		<h1 class="mt-4 font-serif text-3xl font-semibold text-black sm:text-4xl lg:text-5xl">
 			{therapy.heading}
 		</h1>
@@ -42,11 +45,19 @@
 </SplitSection>
 
 {#if therapy.testimonials.length > 0}
-	<Testimonials testimonials={therapy.testimonials} />
+	<Testimonials
+		testimonials={therapy.testimonials}
+		label={therapy.testimonialsLabel || DEFAULT_LABELS.testimonialsLabel}
+		heading={therapy.testimonialsHeading || DEFAULT_LABELS.testimonialsHeading}
+	/>
 {/if}
 
 {#if bookingOptions.length}
-	<BookingOptions options={bookingOptions} />
+	<BookingOptions
+		options={bookingOptions}
+		label={therapy.bookingOptionsLabel}
+		heading={therapy.bookingOptionsHeading}
+	/>
 {/if}
 
 <Contact {contact} {addresses} {bookHref} mailSubject="Henvendelse om {therapy.heading}" />

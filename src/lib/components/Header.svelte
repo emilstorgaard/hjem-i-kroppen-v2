@@ -3,6 +3,7 @@
 	import type { SettingsProperties } from '$lib/types/settings';
 	import { navLinks } from '$lib/navigation';
 	import { page } from '$app/state';
+	import { getLabels } from '$lib/labels';
 	import type { UserResponse } from '$lib/types/booking';
 
 	let { settings, user = null }: { settings: SettingsProperties; user?: UserResponse | null } =
@@ -87,6 +88,8 @@
 	function closeMenu() {
 		mobileMenuOpen = false;
 	}
+
+	const labels = $derived(getLabels());
 </script>
 
 <header
@@ -143,7 +146,7 @@
 					? 'bg-mint-700 text-white hover:bg-black'
 					: 'bg-white/90 text-black hover:bg-white'}"
 			>
-				Book tid
+				{labels.bookButtonText}
 			</a>
 
 			{#if user}
@@ -201,7 +204,7 @@
 						? 'text-black/70 hover:text-mint-700'
 						: 'text-white/90 hover:text-mint-400'}"
 				>
-					Log ind
+					{labels.loginButtonText}
 				</a>
 			{/if}
 		</div>
@@ -269,7 +272,7 @@
 				onclick={closeMenu}
 				class="mt-1 rounded-full bg-mint-700 px-5 py-3 text-center text-sm font-semibold tracking-[0.2em] text-white uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
 			>
-				Book tid
+				{labels.bookButtonText}
 			</a>
 			{#if user}
 				<a
@@ -299,7 +302,7 @@
 					href={loginHref}
 					onclick={closeMenu}
 					class="rounded-lg px-3 py-2.5 text-base font-medium text-black hover:bg-black/5"
-					>Log ind</a
+					>{labels.loginButtonText}</a
 				>
 			{/if}
 		</nav>

@@ -1,9 +1,8 @@
 export type ContactProperties = {
-	email: string;
+	/** Heading of the contact section, shown on the home page and every therapy page. Empty means the default. */
+	contactHeading: string;
+	/** Intro text of the contact section, one entry per paragraph. Empty means the default. */
+	contactText: string[];
+	email?: string;
 	phone?: string;
-	streetAddress?: string;
-	postalCode?: string;
-	city?: string;
-	facebookUrl?: string;
-	instagramUrl?: string;
 };

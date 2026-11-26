@@ -1,8 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { getContentByPath } from '$lib/server/umbraco';
+import { getHomePage } from '$lib/server/homePage';
 import { bookingLinks, getTherapyPages } from '$lib/server/therapyPages';
-import { addresses } from '$lib/content/addresses';
-import type { HomePage } from '$lib/types/homePage';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, fetch, locals }) => {
@@ -11,8 +9,8 @@ export const load: PageServerLoad = async ({ params, fetch, locals }) => {
 	if (!page) error(404, 'Not found');
 
 	const [home, links] = await Promise.all([
-		// Phone and e-mail live on the Umbraco home page. The page still renders without them.
-		getContentByPath<HomePage>('forside', fetch).catch(() => null),
+		// Phone, e-mail and addresses live on the Umbraco home page. The page still renders without them.
+		getHomePage(fetch).catch(() => null),
 		bookingLinks(locals.api, page)
 	]);
 
@@ -20,8 +18,8 @@ export const load: PageServerLoad = async ({ params, fetch, locals }) => {
 		page,
 		bookHref: links.bookHref,
 		bookingOptions: links.options,
+		homeLabels: home?.properties.labels ?? {},
 		contact: home?.properties ?? null,
-		// TODO: Fetch the addresses from Umbraco.
-		addresses
+		addresses: home?.properties.addresses ?? []
 	};
 };

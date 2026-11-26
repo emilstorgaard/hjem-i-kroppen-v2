@@ -37,8 +37,10 @@
 		<p class="text-sm text-white/70 sm:text-right">
 			&copy; {s.ownerName}
 			{year}
-			<br />
-			Fotos [fotografens navn]
+			{#if s.photographer}
+				<br />
+				Fotos {s.photographer}
+			{/if}
 		</p>
 	</div>
 </footer>

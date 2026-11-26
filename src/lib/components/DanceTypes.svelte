@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { DanceType } from '$lib/types/danceType';
 	import { reveal } from '$lib/actions/reveal';
+	import { getLabels } from '$lib/labels';
 	import { mediaSrc, mediaSrcset } from '$lib/utils/media';
 	let { danceTypes }: { danceTypes: DanceType[] } = $props();
+
+	const labels = $derived(getLabels());
 </script>
 
 <section
@@ -14,7 +17,7 @@
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-3xl text-center" use:reveal>
 			<p id="terapi-heading" class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">
-				Terapi
+				{labels.therapyLabel}
 			</p>
 		</div>
 
@@ -60,7 +63,7 @@
 							href="/{type.slug}"
 							class="group mt-6 hidden items-center gap-1 rounded-sm text-sm font-medium text-mint-700 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:inline-flex"
 						>
-							Læs mere
+							{labels.readMoreText}
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
@@ -81,7 +84,7 @@
 							href="/{type.slug}"
 							class="mt-6 inline-flex items-center justify-center bg-mint-700 px-8 py-3.5 text-sm font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
 						>
-							Læs mere
+							{labels.readMoreText}
 						</a>
 					</div>
 				</div>

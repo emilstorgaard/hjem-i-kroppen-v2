@@ -11,10 +11,3 @@ export type ElementBlock<T> = {
 	};
 	settings: unknown | null;
 };
-
-export type PriceItemBlock = ElementBlock<{
-	title: string;
-	duration: string;
-	price: string;
-	unit: string;
-}>;

@@ -13,9 +13,15 @@
 	>
 		<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">{about.label}</p>
 		<h1 class="mt-4 font-serif text-4xl font-semibold text-black lg:text-5xl">{about.heading}</h1>
-		<p class="mt-2 text-sm font-medium tracking-[0.2em] text-mint-700 uppercase">
-			{about.subtitle}
-		</p>
-		<p class="mt-6 leading-relaxed text-black/70 lg:text-lg">{about.text}</p>
+		{#if about.subtitle}
+			<p class="mt-2 text-sm font-medium tracking-[0.2em] text-mint-700 uppercase">
+				{about.subtitle}
+			</p>
+		{/if}
+		<div class="mt-6 space-y-4 leading-relaxed text-black/70 lg:text-lg">
+			{#each about.paragraphs as paragraph, i (i)}
+				<p class="whitespace-pre-line">{paragraph}</p>
+			{/each}
+		</div>
 	</div>
 </SplitSection>

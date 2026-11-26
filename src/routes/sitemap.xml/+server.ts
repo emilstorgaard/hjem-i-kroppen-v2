@@ -2,6 +2,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { SITE_URL } from '$lib/site';
 import { getContentByPath } from '$lib/server/umbraco';
 import { getTherapyPages } from '$lib/server/therapyPages';
+import { findAboutPage } from '$lib/server/aboutPage';
+import { findPricesPage } from '$lib/server/pricesPage';
 
 type SitemapPage = {
 	path: string;
@@ -14,8 +16,6 @@ type SitemapPage = {
 // `slug` is the Umbraco content path, used to look up when the page was last changed
 const staticPages: SitemapPage[] = [
 	{ path: '/', slug: 'forside', priority: '1.0', changefreq: 'monthly' },
-	{ path: '/priser', /* slug: 'priser', */ priority: '0.8', changefreq: 'monthly' },
-	{ path: '/om-mig', /* slug: 'om-mig', */ priority: '0.8', changefreq: 'monthly' },
 	{ path: '/book', priority: '0.9', changefreq: 'daily' }
 ];
 
@@ -30,10 +30,16 @@ async function lastModified(slug?: string): Promise<string | undefined> {
 }
 
 export const GET: RequestHandler = async () => {
-	// Therapy pages are created in Umbraco, which also tells when each was last changed.
-	const therapyPages = await getTherapyPages().catch(() => []);
+	// Therapy pages, the about page and the prices page are created in Umbraco, which also tells when each was last changed.
+	const [therapyPages, aboutPage, pricesPage] = await Promise.all([
+		getTherapyPages().catch(() => []),
+		findAboutPage().catch(() => null),
+		findPricesPage().catch(() => null)
+	]);
 	const pages: SitemapPage[] = [
 		...staticPages,
+		{ path: '/priser', lastmod: pricesPage?.updatedAt, priority: '0.8', changefreq: 'monthly' },
+		{ path: '/om-mig', lastmod: aboutPage?.updatedAt, priority: '0.8', changefreq: 'monthly' },
 		...therapyPages.map((page) => ({
 			path: `/${page.slug}`,
 			lastmod: page.updatedAt,

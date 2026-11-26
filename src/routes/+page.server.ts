@@ -1,23 +1,21 @@
-import { getContentByPath } from '$lib/server/umbraco';
-import { addresses } from '$lib/content/addresses';
+import { getHomePage } from '$lib/server/homePage';
+import { findAboutPage } from '$lib/server/aboutPage';
 import { getTherapyPages, toDanceType } from '$lib/server/therapyPages';
-import { testimonials } from '$lib/content/testimonials';
-import type { HomePage } from '$lib/types/homePage';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch }) => {
-	const [page, therapyPages] = await Promise.all([
-		getContentByPath<HomePage>('forside', fetch),
-		// The cards are the therapy pages in Umbraco. The home page still renders without them.
-		getTherapyPages(fetch).catch(() => [])
+	const [page, therapyPages, aboutPage] = await Promise.all([
+		getHomePage(fetch),
+		// The cards are the therapy pages in Umbraco, and the "Om mig" section is a teaser for the about page. The home
+		// page still renders without them.
+		getTherapyPages(fetch).catch(() => []),
+		findAboutPage(fetch).catch(() => null)
 	]);
 
-	// TODO: Fetch testimonials from Umbraco once the content is ready.
 	return {
 		page,
+		homeLabels: page.properties.labels,
 		danceTypes: therapyPages.map(toDanceType),
-		testimonials,
-		// TODO: Fetch the addresses from Umbraco (same list as on the therapy pages).
-		addresses
+		about: aboutPage?.properties ?? null
 	};
 };

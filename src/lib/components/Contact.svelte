@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/reveal';
+	import { getLabels } from '$lib/labels';
 	import { addressLines, directionsHref } from '$lib/utils/address';
 	import type { Address } from '$lib/types/address';
 	import type { ContactProperties } from '$lib/types/contact';
@@ -14,6 +15,13 @@
 	};
 
 	let { contact, addresses, bookHref = '/book', mailSubject }: Props = $props();
+
+	const heading = $derived(contact?.contactHeading || 'Lad os finde hjem i din krop — sammen');
+	const text = $derived(
+		contact?.contactText.length
+			? contact.contactText
+			: ['Har du spørgsmål, eller vil du booke en tid? Så tøv ikke med at skrive eller ringe — jeg glæder mig til at høre fra dig.']
+	);
 
 	type ContactItem = {
 		icon: 'phone' | 'mail' | 'pin';
@@ -36,6 +44,8 @@
 			...addresses.map((address) => ({ icon: 'pin', label: address.label, lines: addressLines(address), href: directionsHref(address), external: true }))
 		].filter((item): item is ContactItem => Boolean(item))
 	);
+
+	const labels = $derived(getLabels());
 </script>
 
 {#snippet icon(name: ContactItem['icon'])}
@@ -79,21 +89,20 @@
 >
 	<div class="mx-auto max-w-6xl">
 		<div class="mx-auto max-w-2xl text-center" use:reveal>
-			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">Kontakt</p>
+			<p class="text-sm font-medium tracking-[0.3em] text-black/60 uppercase">{labels.contactLabel}</p>
 			<h2 id="kontakt-heading" class="mt-4 font-serif text-3xl font-semibold text-black sm:text-4xl lg:text-5xl">
-				Lad os finde hjem i din krop &mdash; sammen
+				{heading}
 			</h2>
-			<p class="mt-6 text-lg leading-relaxed text-black/70">
-				Har du spørgsmål, eller vil du booke en tid? Så tøv ikke med at skrive eller ringe &mdash;
-				jeg glæder mig til at høre fra dig.
-			</p>
+			{#each text as paragraph, i (i)}
+				<p class={['text-lg leading-relaxed text-black/70', i === 0 ? 'mt-6' : 'mt-4']}>{paragraph}</p>
+			{/each}
 
 			{#if mailHref}
 				<a
 					href={mailHref}
 					class="mt-8 inline-flex items-center justify-center rounded-full bg-mint-700 px-8 py-3.5 text-center text-sm font-semibold tracking-[0.2em] text-white uppercase transition-all duration-300 hover:scale-[1.03] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 active:scale-95 max-sm:w-full"
 				>
-					Skriv til mig for at høre mere
+					{labels.contactButtonText}
 				</a>
 			{/if}
 		</div>
@@ -126,7 +135,7 @@
 				href={bookHref}
 				class="inline-flex items-center justify-center rounded-full bg-mint-700 px-12 py-4 text-base font-semibold tracking-[0.2em] text-white uppercase transition-all duration-300 hover:scale-[1.03] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 active:scale-95 max-sm:w-full"
 			>
-				Book
+				{labels.bookText}
 			</a>
 		</div>
 	</div>

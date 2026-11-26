@@ -1,6 +1,6 @@
 import type { UmbracoMedia } from './umbraco';
 import type { SeoProperties } from './seo';
-import type { Testimonial } from './testimonial';
+import type { Testimonial, TestimonialElement } from './testimonial';
 import type { BookingOptionRef } from './bookingOption';
 import type { BlockList, ElementBlock } from './elementTypes';
 
@@ -20,10 +20,12 @@ export type TherapyPageContent = {
 		image?: UmbracoMedia[] | null;
 		audience?: string | null;
 		participants?: string | null;
-		/** Element type Anmeldelse: `quote`, `author` ("name" is reserved in Umbraco) and `rating`. */
-		testimonials?: BlockList<
-			ElementBlock<{ quote?: string | null; author?: string | null; rating?: number | null }>
-		> | null;
+		/** Element type Anmeldelse. */
+		testimonials?: BlockList<ElementBlock<TestimonialElement>> | null;
+		testimonialsLabel?: string | null;
+		testimonialsHeading?: string | null;
+		bookingOptionsLabel?: string | null;
+		bookingOptionsHeading?: string | null;
 		/** Element type Bookingmulighed: optional `title` and `serviceType` (id from the service type picker). */
 		bookingOptions?: BlockList<
 			ElementBlock<{ title?: string | null; serviceType?: string | null }>
@@ -40,6 +42,12 @@ export type TherapyPageProperties = SeoProperties & {
 	audience: string;
 	participants: string;
 	testimonials: Testimonial[];
+	/** The page's own label and heading above the testimonials. Empty means the default text. */
+	testimonialsLabel: string;
+	testimonialsHeading: string;
+	/** Label and heading above the booking options. The defaults apply when empty. */
+	bookingOptionsLabel: string;
+	bookingOptionsHeading: string;
 	bookingOptions: BookingOptionRef[];
 	/** Booking category the "Book" buttons filter on. Null when none is chosen. */
 	bookingCategoryId: string | null;

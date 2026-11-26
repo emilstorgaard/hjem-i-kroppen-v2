@@ -1,7 +1,6 @@
-import { pricesPage } from '$lib/content/pricesPage';
+import { getPricesPage } from '$lib/server/pricesPage';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = () => {
-	// TODO: Replace with `await getContentByPath<PricesPage>('priser', fetch)` once the page exists in Umbraco.
-	return { page: pricesPage };
+export const load: PageServerLoad = async ({ fetch }) => {
+	return { page: await getPricesPage(fetch) };
 };
